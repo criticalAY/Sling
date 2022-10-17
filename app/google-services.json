@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1091077345754",
+    "project_id": "sling-criticalay",
+    "storage_bucket": "sling-criticalay.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1091077345754:android:68499b09e0647ca71f70e3",
+        "android_client_info": {
+          "package_name": "com.ashishyadav.sling"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1091077345754-4i0upq0k4g84r7u4qg8tok85f90fpjku.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ashishyadav.sling",
+            "certificate_hash": "53331ef9b4ff4c86fb4234c7e90fd9598d31366d"
+          }
+        },
+        {
+          "client_id": "1091077345754-l8et3u0i7s309afst5840m845hhd1a4f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-aVzJkpUcqiA4ECWagIJZVw09xLf-ZO0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1091077345754-l8et3u0i7s309afst5840m845hhd1a4f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
