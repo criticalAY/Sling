@@ -3,4 +3,5 @@
     <string name="sign_up">Sign Up</string>
     <string name="sign_in_using_google">Sign-In using Google</string>
     <string name="webclient_id">1091077345754-l8et3u0i7s309afst5840m845hhd1a4f.apps.googleusercontent.com</string>
+    <string name="enter_display_name">Enter display name</string>
 </resources>

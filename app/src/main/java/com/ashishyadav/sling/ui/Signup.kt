@@ -1,20 +1,16 @@
-package com.ashishyadav.sling
+package com.ashishyadav.sling.ui
 
-import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.Toast
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
-import com.google.android.gms.auth.api.identity.BeginSignInRequest
+import com.ashishyadav.sling.R
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -52,6 +48,8 @@ class Signup : AppCompatActivity() {
             try {
                 auth.signInWithCredential(credentials).await()
                 withContext(Dispatchers.Main) {
+                    val intent = Intent(this@Signup, Profile::class.java)
+                    startActivity(intent)
                     Toast.makeText(this@Signup, "Successfully logged in", Toast.LENGTH_LONG).show()
                 }
             } catch(e: Exception) {
@@ -70,6 +68,19 @@ class Signup : AppCompatActivity() {
                 googleAuthForFirebase(it)
             }
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        // Check if user is signed in (non-null) and update UI accordingly.
+        val currentUser = auth.currentUser
+        updateUI(currentUser)
+    }
+
+    private fun updateUI(currentUser: FirebaseUser?) {
+        val intent = Intent(this@Signup, Profile::class.java)
+        startActivity(intent)
+
     }
 
 }
