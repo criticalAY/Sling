@@ -1,4 +1,4 @@
-package com.uchi.sli.lint_check.utils
+package com.uchi.sli.lint.utils
 
 import com.android.tools.lint.detector.api.Category
 import com.android.tools.lint.detector.api.Severity

@@ -11,10 +11,10 @@
 
 @file:Suppress("UnstableApiUsage")
 
-package com.uchi.sli.lint_check
+package com.uchi.sli.lint
 import com.android.tools.lint.client.api.IssueRegistry
 import com.android.tools.lint.detector.api.*
-import com.uchi.sli.lint_check.rules.CopyrightHeaderExists
+
 import java.util.*
 
 open class IssueRegistry : IssueRegistry() {
@@ -23,7 +23,6 @@ open class IssueRegistry : IssueRegistry() {
         get() {
             // Keep this list lexicographically ordered.
             return listOf(
-                CopyrightHeaderExists.ISSUE,
             )
         }
 }
