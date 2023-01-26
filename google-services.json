@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "994818492886",
+    "project_id": "sling-uchi",
+    "storage_bucket": "sling-uchi.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:994818492886:android:da01673820803bfaa37c77",
+        "android_client_info": {
+          "package_name": "com.uchi.sling"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "994818492886-ogtk578dvhi1kjmbsh3jvivqauht4k9b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.uchi.sling",
+            "certificate_hash": "8d9920432c6c35a4219be11a37402ef0763fc582"
+          }
+        },
+        {
+          "client_id": "994818492886-aqu1kbgnddrdvdpehde5lmou24ugukrk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAW-3BqgEqyDvSvDQGbvmSRAxzeXHVlVcY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "994818492886-aqu1kbgnddrdvdpehde5lmou24ugukrk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
