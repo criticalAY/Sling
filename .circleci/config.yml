@@ -47,3 +47,7 @@ workflows:
     # Inside the workflow, you define the jobs you want to run.
     jobs:
       - build-and-test
+      
+  - name: Close Stale Issues
+  uses: actions/stale@v7.0.0
+
