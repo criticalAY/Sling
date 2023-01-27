@@ -5,4 +5,7 @@
     <string name="password_label">Password</string>
     <string name="login">Login</string>
     <string name="or_text">Or</string>
+    <string name="forgot_password">Forgot password</string>
+    <string name="new_user_sign_up">New user? Sign up</string>
+    <string name="your_web_client_id">http://994818492886-ogtk578dvhi1kjmbsh3jvivqauht4k9b.apps.googleusercontent.com</string>
 </resources>

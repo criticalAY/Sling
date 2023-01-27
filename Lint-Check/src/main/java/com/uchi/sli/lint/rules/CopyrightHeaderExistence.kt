@@ -11,13 +11,13 @@ import com.android.tools.lint.detector.api.*
 import com.google.common.annotations.Beta
 import com.google.common.annotations.VisibleForTesting
 import com.uchi.sli.lint.utils.Constants
+import java.util.regex.Pattern
 import org.jetbrains.uast.UClass
 import org.jetbrains.uast.UElement
-import java.util.regex.Pattern
 
 @Beta
 class CopyrightHeaderExistence : Detector(), SourceCodeScanner {
-    companion object{
+    companion object {
         /**
          * &#64;SuppressWarnings doesn't work as it's the first statement, so allow suppression via:
          * <pre>//noinspection MissingCopyrightHeader &lt;reason&gt;</pre>
@@ -30,9 +30,9 @@ class CopyrightHeaderExistence : Detector(), SourceCodeScanner {
         @VisibleForTesting
         const val ID = "MissingCopyrightHeader"
         private const val EXPLANATION = "All files in Sling must contain a " +
-                "copyright header. The copyright header can be set in " +
-                "Settings - Editor - Copyright - Copyright Profiles - Add Profile - Sling. " +
-                "Or search in Settings for 'Copyright' and it may be added as the first line of the file."
+            "copyright header. The copyright header can be set in " +
+            "Settings - Editor - Copyright - Copyright Profiles - Add Profile - Sling. " +
+            "Or search in Settings for 'Copyright' and it may be added as the first line of the file."
 
         val ISSUE: Issue = Issue.create(
             ID,
@@ -52,8 +52,8 @@ class CopyrightHeaderExistence : Detector(), SourceCodeScanner {
 
     override fun afterCheckFile(context: Context) {
         val contents = context.getContents()
-        if (contents == null || COPYRIGHT_PATTERN.matcher(contents).find()
-            || IGNORE_CHECK_PATTERN.matcher(contents).find()
+        if (contents == null || COPYRIGHT_PATTERN.matcher(contents).find() ||
+            IGNORE_CHECK_PATTERN.matcher(contents).find()
         ) {
             return
         }
@@ -74,6 +74,5 @@ class CopyrightHeaderExistence : Detector(), SourceCodeScanner {
         val location: Location = Location.create(context.file, contents.subSequence(0, endOffset), 0, endOffset)
         context.report(ISSUE, location, DESCRIPTION)
     }
-
 
 }

@@ -13,13 +13,84 @@ buildscript {
 
     }
 }
+
 plugins {
     id 'com.android.application' version '7.4.0' apply false
     id 'com.android.library' version '7.4.0' apply false
     id 'org.jetbrains.kotlin.android' version '1.7.21' apply false
     id 'org.jetbrains.kotlin.jvm' version '1.7.21' apply false
+    id("org.jlleitschuh.gradle.ktlint") version "11.0.0" apply true
 }
 
 allprojects {
+    apply plugin: "org.jlleitschuh.gradle.ktlint"
+}
 
+Properties localProperties = new Properties()
+if (project.rootProject.file('local.properties').exists()) {
+    localProperties.load(project.rootProject.file('local.properties').newDataInputStream())
+}
+Boolean fatalWarnings = !(localProperties['fatal_warnings'] == "false")
+
+// Here we extract per-module "best practices" settings to a single top-level evaluation
+subprojects {
+    afterEvaluate { project ->
+
+        if (project.hasProperty('android')) {
+            project.android.testOptions.unitTests {
+                includeAndroidResources = true
+            }
+            project.android.testOptions.unitTests.all {
+                // tell backend to avoid rollover time, and disable interval fuzzing
+                environment "SLING_TEST_MODE", "1"
+
+                useJUnitPlatform()
+                testLogging {
+                    events "failed", "skipped"
+                    showStackTraces = true
+                    exceptionFormat = "full"
+                }
+
+                maxParallelForks = gradleTestMaxParallelForks
+                forkEvery = 40
+                systemProperties['junit.jupiter.execution.parallel.enabled'] = true
+                systemProperties['junit.jupiter.execution.parallel.mode.default'] = "concurrent"
+            }
+        }
+
+        ktlint {
+            // remove version override when ktlint gradle plugin releases with 0.45+ transitive
+            // check for "ktlint" here:
+            // https://github.com/JLLeitschuh/ktlint-gradle/blob/master/plugin/gradle/libs.versions.toml
+            android = true
+            ignoreFailures = false
+            version = "0.45.2"
+            disabledRules = ["final-newline",
+                             "no-blank-line-before-rbrace",
+                             "no-empty-class-body",
+                             "no-wildcard-imports",
+                             "max-line-length"]
+            reporters {
+                reporter "checkstyle"
+                reporter "sarif"
+            }
+        }
+
+        /**
+         Kotlin allows concrete function implementations inside interfaces.
+         For those to work when Kotlin compilation targets the JVM backend, you have to enable the interoperability via
+         'freeCompilerArgs' in your gradle file, and you have to choose one of the appropriate '-Xjvm-default' modes.
+
+         https://kotlinlang.org/docs/java-to-kotlin-interop.html#default-methods-in-interfaces
+
+         and we used "all" because we don't have downstream consumers
+         https://docs.gradle.org/current/userguide/task_configuration_avoidance.html
+         */
+        tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+            kotlinOptions {
+                allWarningsAsErrors = fatalWarnings
+                freeCompilerArgs = ['-Xjvm-default=all']
+            }
+        }
+    }
 }

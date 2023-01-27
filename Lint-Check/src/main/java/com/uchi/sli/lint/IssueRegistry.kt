@@ -10,7 +10,6 @@ package com.uchi.sli.lint
 import com.android.tools.lint.client.api.IssueRegistry
 import com.android.tools.lint.detector.api.*
 import com.uchi.sli.lint.rules.CopyrightHeaderExistence
-
 import java.util.*
 
 open class IssueRegistry : IssueRegistry() {

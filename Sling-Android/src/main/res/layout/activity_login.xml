@@ -96,7 +96,9 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textSize="13sp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:layout_gravity="start"
+        android:text="@string/forgot_password"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/action_new_user"
@@ -104,7 +106,8 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textSize="13sp"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:text="@string/new_user_sign_up"/>
 
   </LinearLayout>
 

@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'com.google.gms.google-services'
+    id 'org.jlleitschuh.gradle.ktlint' version '11.0.0'
 }
 
 android {
@@ -20,7 +21,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -32,6 +33,15 @@ android {
         jvmTarget = '1.8'
     }
 }
+
+//tasks.getByPath("preBuild").dependsOn("ktlintFormat")
+// Install Git pre-commit hook for Ktlint
+task installGitHook(type: Copy) {
+    from new File(rootProject.rootDir, 'pre-commit')
+    into { new File(rootProject.rootDir, '.git/hooks') }
+    fileMode 0755
+}
+tasks.getByPath('preBuild').dependsOn installGitHook
 
 dependencies {
     lintChecks project(path: ':Lint-Check')
@@ -46,5 +56,11 @@ dependencies {
 
     // firebase services
     implementation platform('com.google.firebase:firebase-bom:31.2.0')
+    implementation 'com.google.firebase:firebase-auth:21.1.0'
+    implementation 'com.google.firebase:firebase-auth-ktx:21.1.0'
+    implementation 'com.google.android.gms:play-services-auth:20.4.1'
+
     implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.arcao:slf4j-timber:3.1'
+    implementation 'com.jakewharton.timber:timber:5.0.1'
 }

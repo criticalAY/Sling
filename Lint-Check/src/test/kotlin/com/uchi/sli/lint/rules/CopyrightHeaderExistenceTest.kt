@@ -16,8 +16,8 @@ import org.junit.Test
 @Suppress("UnstableApiUsage")
 @Beta
 class CopyrightHeaderExistenceTest {
-        @Language("JAVA")
-        private val mCopyrightHeader = """/*
+    @Language("JAVA")
+    private val mCopyrightHeader = """/*
  *  Copyright (c) Ashish Yadav <mailtoashish693@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify it
@@ -41,28 +41,28 @@ class CopyrightHeaderExistenceTest {
         }
     """.trimIndent()
 
-        @Test
-        fun fileWithCopyrightHeaderPasses() {
-            TestLintTask.lint()
-                .allowMissingSdk()
-                .files(TestFile.JavaTestFile.create(mCopyrightHeader))
-                .issues(CopyrightHeaderExistence.ISSUE)
-                .run()
-                .expectClean()
-        }
+    @Test
+    fun fileWithCopyrightHeaderPasses() {
+        TestLintTask.lint()
+            .allowMissingSdk()
+            .files(TestFile.JavaTestFile.create(mCopyrightHeader))
+            .issues(CopyrightHeaderExistence.ISSUE)
+            .run()
+            .expectClean()
+    }
 
-        @Test
-        fun fileWithNoCopyrightHeaderFails() {
-            TestLintTask.lint()
-                .allowMissingSdk()
-                .allowCompilationErrors() // import failures
-                .files(TestFile.JavaTestFile.create(mNoCopyrightHeader))
-                .issues(CopyrightHeaderExistence.ISSUE)
-                .run()
-                .expectErrorCount(1)
-                .check({ output: String ->
-                    Assert.assertTrue(output.contains(CopyrightHeaderExistence.ID))
-                    Assert.assertTrue(output.contains(CopyrightHeaderExistence.DESCRIPTION))
-                })
-        }
+    @Test
+    fun fileWithNoCopyrightHeaderFails() {
+        TestLintTask.lint()
+            .allowMissingSdk()
+            .allowCompilationErrors() // import failures
+            .files(TestFile.JavaTestFile.create(mNoCopyrightHeader))
+            .issues(CopyrightHeaderExistence.ISSUE)
+            .run()
+            .expectErrorCount(1)
+            .check({ output: String ->
+                Assert.assertTrue(output.contains(CopyrightHeaderExistence.ID))
+                Assert.assertTrue(output.contains(CopyrightHeaderExistence.DESCRIPTION))
+            })
+    }
 }
