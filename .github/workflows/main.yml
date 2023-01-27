@@ -1,70 +1,100 @@
-name: Remove Assignees
+name: Code Quality Checks
 
 on:
-  pull_request_target:
-    types: [ closed ]
+  workflow_dispatch:
+    inputs:
+      clearCaches:
+        description: "Clear workflow caches where possible"
+        required: false
+        type: string
+  pull_request:
+    branches:
+      - '**'
+    paths:
+      - '.github/workflows/**'
+      - 'Sling-Android/**'
+      - 'api/**'
+      - 'lint-rules/**'
+      - 'annotations/**'
+      - '**/*.gradle'
+      - 'gradle/**'
+  push:
+    branches:
+      - main
+      - i18n_sync
+      - dependency-updates
+      - 'release**'
+    paths:
+      - '.github/workflows/**'
+      - 'Sling-Android/**'
+      - 'Lint-Checks/**'
+      - 'annotations/**'
+      - '**/*.gradle'
+      - 'gradle/**'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  merge_job:
-    if: ${{ github.event.pull_request.merged == true }}
-    permissions:
-      contents: read
-      issues: write
-      pull-requests: write
+  lintDebug:
+    name: Lint Debug
+    timeout-minutes: 20
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/github-script@v6
+      - uses: actions/checkout@v3
         with:
-          script: |
+          fetch-depth: 1
 
-            const variables = {
-              _url: "https://github.com/criticalAY/${{ github.event.repository.name }}/pull/${{ github.event.pull_request.number }}"
-            };
+      - name: Configure JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: "temurin"
+          java-version: "11" # ubuntu-latest is about to default to 11, force it everywhere
 
-            const query = `query($_url:URI!) {
-              resource(url:$_url) {
-                ... on PullRequest {
-                  closingIssuesReferences(first:10) {
-                    nodes {
-                      number
-                    }
-                  }
-                }
-              }
-            }`;
+      - name: Verify JDK11
+        # Default JDK varies depending on different runner flavors, make sure we are on 11
+        # Run a check that exits with error unless it is 11 version to future-proof against unexpected upgrades
+        run: java -fullversion 2>&1 | grep '11.0'
+        shell: bash
 
-            const result = await github.graphql(query, variables);
-            const refIssues = result.resource.closingIssuesReferences.nodes;
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+        timeout-minutes: 5
+        with:
+          # Only write to the cache for builds on the 'main' branches, stops branches evicting main cache
+          # Builds on other branches will only read from main branch cache writes
+          # Comment this and the with: above out for performance testing on a branch
+          cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+          gradle-home-cache-cleanup: true
 
-            let listAssignees_result = await github.rest.issues.listAssignees({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-            });
+      - name: Clear Caches Optionally
+        if: "${{ github.event.inputs.clearCaches != '' }}"
+        shell: bash
+        run: |
+          du -sk ~/.gradle
+          rm -fr ~/.gradle
+          du -sk ~/.gradle || echo ~/.gradle is gone
 
-            // remove all the assignees of the issue
-            if (listAssignees_result.data !== null && listAssignees_result.data.length > 0) {
-              let assignees_info_list = listAssignees_result.data;
-              let assignees_list=[];
-              for (let assignee_info of assignees_info_list) {
-                  assignees_list.push(assignee_info["login"]);
-              }
+      - name: Warm Gradle Cache
+        # This makes sure we fetch gradle network resources with a retry
+        uses: nick-invision/retry@v2
+        with:
+          timeout_minutes: 10
+          retry_wait_seconds: 60
+          max_attempts: 3
+          command: ./gradlew :Sling:compilePlayDebugJavaWithJavac compileLint lint-rules:compileTestJava --daemon
 
-              await github.rest.issues.removeAssignees({
-                    owner: context.repo.owner,
-                    repo: context.repo.repo,
-                    issue_number: context.issue.number,
-                    assignees: assignees_list,
-              });
-              console.log("Removed Assignees in this pr#",context.issue.number);
+      - name: Run Lint Debug
+        uses: gradle/gradle-build-action@v2
+        with:
+          # "lint" is run under the 'Amazon' flavor, so slow in CI
+          # "lintPlayRelease" doesn't test androidTest
+          # "lintPlayDebug" doesn't test the API
+          arguments: lintPlayDebug :api:lintDebug ktLintCheck lint-rules:test --daemon
 
-              for (issue of refIssues) {
-                await github.rest.issues.removeAssignees({
-                    owner: context.repo.owner,
-                    repo: context.repo.repo,
-                    issue_number: issue.number,
-                    assignees: assignees_list,
-                  });
-                  console.log("Removed Assignees in issue#",issue.number);
-              }
-            }
-
+      - name: Prettify code
+        uses: creyD/prettier_action@v4.2
+        with:
+          prettier_options: --check Sling/**/*.js
+          dry: True
