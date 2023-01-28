@@ -7,6 +7,10 @@
     <string name="or_text">Or</string>
     <string name="forgot_password">Forgot password</string>
     <string name="new_user_sign_up">New user? Sign up</string>
-    <string name="web_client_id">http://994818492886-ogtk578dvhi1kjmbsh3jvivqauht4k9b.apps.googleusercontent.com</string>
+    <string name="web_client_id">994818492886-ogtk578dvhi1kjmbsh3jvivqauht4k9b.apps.googleusercontent.com</string>
     <string name="email_not_found">Email not registered</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sign_in_with_google">Sign in with Google</string>
+    <string name="profile_type">Select profile type</string>
 </resources>

@@ -106,6 +106,8 @@
         android:id="@+id/action_forgot_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
         android:gravity="center"
         android:textSize="13sp"
         android:layout_weight="1"
@@ -116,6 +118,8 @@
         android:id="@+id/action_new_user"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
         android:gravity="center"
         android:textSize="13sp"
         android:layout_weight="1"
@@ -137,6 +141,7 @@
   <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:contextClickable="true"
       android:orientation="horizontal"
       android:gravity="center"
       android:padding="4dp"
@@ -153,13 +158,16 @@
         android:background="@drawable/ic_google"/>
 
     <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/action_google_sign_in"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:clickable="true"
+        android:focusable="true"
         android:layout_marginStart="12dp"
         android:gravity="center"
         android:textSize="15sp"
         android:textStyle="bold"
-        android:text="Sign in with Google"/>
+        android:text="@string/sign_in_with_google"/>
 
   </LinearLayout>
 
