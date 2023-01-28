@@ -1,51 +1,13 @@
 package com.uchi.sling.utils.auth
 
-import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.uchi.sling.ui.LoginActivity
 import timber.log.Timber
 
 @Suppress("unused")
 object FirebaseUtils {
     val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
     val firebaseUser: FirebaseUser? = firebaseAuth.currentUser
-
-    fun googleSignInRequest() {
-        BeginSignInRequest.builder()
-            .setGoogleIdTokenRequestOptions(
-                BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
-                    .setSupported(true)
-                    // Your server's client ID, not your Android client ID.
-                    .setServerClientId(LoginActivity.webClient)
-                    // Only show accounts previously used to sign in.
-                    .setFilterByAuthorizedAccounts(true)
-                    .build()
-            )
-            .build()
-    }
-
-//    private fun notEmpty(): Boolean = etEmail.text.toString().trim().isNotEmpty() &&
-//            etPassword.text.toString().trim().isNotEmpty() &&
-//            etConfirmPassword.text.toString().trim().isNotEmpty()
-//
-//    private fun identicalPassword(): Boolean {
-//        var identical = false
-//        if (notEmpty() &&
-//            etPassword.text.toString().trim() == etConfirmPassword.text.toString().trim()
-//        ) {
-//            identical = true
-//        } else if (!notEmpty()) {
-//            createAccountInputsArray.forEach { input ->
-//                if (input.text.toString().trim().isEmpty()) {
-//                    input.error = "${input.hint} is required"
-//                }
-//            }
-//        } else {
-//            toast("passwords are not matching !")
-//        }
-//        return identical
-//    }
 
 //    private fun emailSignUp() {
 //        if (identicalPassword()) {
