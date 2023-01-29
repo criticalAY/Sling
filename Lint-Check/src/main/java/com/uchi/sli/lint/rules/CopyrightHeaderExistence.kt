@@ -50,14 +50,14 @@ class CopyrightHeaderExistence : Detector(), SourceCodeScanner {
         const val ID = "MissingCopyrightHeader"
 
         @VisibleForTesting
-        const val DESCRIPTION = "All files in AnkiDroid must contain a GPLv3-compatible copyright header"
+        const val DESCRIPTION = "All files in Sling must contain a GPLv3-compatible copyright header"
         private const val EXPLANATION = "All files in Sling must contain a " +
             "GPLv3-compatible copyright header" +
             "The copyright header can be set in " +
             "Settings - Editor - Copyright - Copyright Profiles - Add Profile - Sling. " +
             "Or search in Settings for 'Copyright'" +
             "A GPLv3 template is available:\n" +
-            "https://github.com/ankidroid/Anki-Android/issues/8211#issuecomment-825269673 \n\n" +
+            "https://github.com/criticalAY/Sling \n\n" +
             "If the file is under a GPL-Compatible License (https://www.gnu.org/licenses/license-list.en.html#GPLCompatibleLicenses) " +
             "then this warning may be suppressed either via adding a GPL header added alongside the license: " +
             "https://softwarefreedom.org/resources/2007/gpl-non-gpl-collaboration.html#x1-40002.2 + or " +
