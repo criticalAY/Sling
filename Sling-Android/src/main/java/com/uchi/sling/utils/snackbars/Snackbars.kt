@@ -1,3 +1,18 @@
+/*
+ *  Copyright (c) 2023 Ashish Yadav <mailtoashish693@gmail.com>
+ *
+ *  This program is free software; you can redistribute it and/or modify it under
+ *  the terms of the GNU General Public License as published by the Free Software
+ *  Foundation; either version 3 of the License, or (at your option) any later
+ *  version.
+ *
+ *  This program is distributed in the hope that it will be useful, but WITHOUT ANY
+ *  WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ *  PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License along with
+ *  this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 @file:Suppress("unused")
 package com.uchi.sling.utils.snackbars
 
@@ -10,6 +25,7 @@ import androidx.annotation.StringRes
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.snackbar.onAttachedToWindow2
 import com.uchi.sling.BuildConfig
 import com.uchi.sling.R
 import com.uchi.sling.utils.UIUtils.showThemedToast
@@ -272,7 +288,7 @@ fun Snackbar.setMaxLines(maxLines: Int) {
 private fun Snackbar.fixMarginsWhenInsetsChange() {
     view.post {
         view.rootView.setOnApplyWindowInsetsListener { rootView, insets ->
-            // onAttachedToWindow2()
+            onAttachedToWindow2()
             rootView.onApplyWindowInsets(insets)
         }
     }

@@ -16,14 +16,13 @@
 
 package com.uchi.sling.ui
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.uchi.sling.R
 
-class SplashScreenActivity : AppCompatActivity() {
+class DashboardActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        startActivity(Intent(this@SplashScreenActivity, LoginActivity::class.java))
-        finish()
+        setContentView(R.layout.activity_dashboard)
     }
 }
