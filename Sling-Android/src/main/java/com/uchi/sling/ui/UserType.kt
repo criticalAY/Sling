@@ -20,10 +20,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.uchi.sling.R
 
@@ -39,11 +40,19 @@ class UserType : Fragment() {
         super.onCreate(savedInstanceState)
 
     }
-
+// TODO: dont enable the button until user select some value
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val items = resources.getStringArray(R.array.user_type).toList()
+        val adapter = ArrayAdapter(requireContext(), R.layout.profile_drop_down, items)
+        var userVarArg: Int? = null
+        (userType as? AutoCompleteTextView)?.setAdapter(adapter)
+        (userType as? AutoCompleteTextView)?.onItemClickListener =
+            AdapterView.OnItemClickListener { _, _, position, _ ->
+                userVarArg = position
+            }
         proceedToUserDetails.setOnClickListener {
-            view.findNavController().navigate(R.id.action_userType_to_userDetails)
+            findNavController().navigate(UserTypeDirections.actionUserTypeToUserDetails(userVarArg!!.toInt()))
         }
 
     }
@@ -56,10 +65,6 @@ class UserType : Fragment() {
         val view = inflater.inflate(R.layout.fragment_user_type, container, false)
         userType = view.findViewById(R.id.user_profile_type)
         proceedToUserDetails = view.findViewById(R.id.action_proceed)
-
-        val items = listOf("Material", "Design", "Components", "Android")
-        val adapter = ArrayAdapter(requireContext(), R.layout.profile_drop_down, items)
-        (userType as? AutoCompleteTextView)?.setAdapter(adapter)
 
         return view
     }
