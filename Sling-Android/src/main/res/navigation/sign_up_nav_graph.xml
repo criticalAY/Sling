@@ -13,12 +13,18 @@
         <action
             android:id="@+id/action_userType_to_userDetails"
             app:destination="@id/userDetails"
-            app:enterAnim="@anim/slide_in_top"
-            app:exitAnim="@anim/slide_out_top" />
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/userDetails"
         android:name="com.uchi.sling.ui.UserDetails"
         android:label="fragment_user_details"
-        tools:layout="@layout/fragment_user_details" />
+        tools:layout="@layout/fragment_user_details" >
+        <argument
+            android:name="user_type_arg"
+            app:argType="integer" />
+    </fragment>
 </navigation>
