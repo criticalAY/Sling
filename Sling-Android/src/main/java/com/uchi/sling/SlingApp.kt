@@ -23,12 +23,10 @@ open class SlingApp : Application() {
         super.onCreate()
         instance = this
     }
-
     companion object {
         /** Singleton instance of this class.
          * Note: this may not be initialized if AnkiDroid is run via BackupManager
          */
         lateinit var instance: SlingApp
-            private set
     }
 }
