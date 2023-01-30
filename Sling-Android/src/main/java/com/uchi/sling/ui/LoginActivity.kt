@@ -77,7 +77,6 @@ class LoginActivity : AppCompatActivity() {
         if (!userPasswordInput.text.isNullOrEmpty()) {
             userPassword = userPasswordInput.text.toString()
         }
-
         newUser.setOnClickListener {
             startActivity(Intent(this, SignUpActivity::class.java))
         }
