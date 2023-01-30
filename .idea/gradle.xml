@@ -10,8 +10,8 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/Lint-Check" />
             <option value="$PROJECT_DIR$/Sling-Android" />
+            <option value="$PROJECT_DIR$/lint-check" />
           </set>
         </option>
       </GradleProjectSettings>
