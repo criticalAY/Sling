@@ -50,7 +50,7 @@ class UserDetails : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         uProfileCode = userArgs.userTypeArg
-        view.showSnackbar(uProfileCode.toString(), Snackbar.LENGTH_LONG)
+        this.showSnackbar(uProfileCode.toString(), Snackbar.LENGTH_LONG)
         // TODO: diff codes/methods according to profile type
         // TODO: Init sql database here and store user data and the type of profile they made
         // TODO: Save this data to firebase
