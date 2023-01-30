@@ -13,22 +13,16 @@ on:
     paths:
       - '.github/workflows/**'
       - 'Sling-Android/**'
-      - 'api/**'
-      - 'lint-rules/**'
-      - 'annotations/**'
+      - 'lint-check/**'
       - '**/*.gradle'
       - 'gradle/**'
   push:
     branches:
       - main
-      - i18n_sync
-      - dependency-updates
-      - 'release**'
     paths:
       - '.github/workflows/**'
       - 'Sling-Android/**'
-      - 'Lint-Checks/**'
-      - 'annotations/**'
+      - 'lint-check/**'
       - '**/*.gradle'
       - 'gradle/**'
 
@@ -39,7 +33,7 @@ concurrency:
 jobs:
   lintDebug:
     name: Lint Debug
-    timeout-minutes: 20
+    timeout-minutes: 40
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -76,22 +70,13 @@ jobs:
           rm -fr ~/.gradle
           du -sk ~/.gradle || echo ~/.gradle is gone
 
-      - name: Warm Gradle Cache
-        # This makes sure we fetch gradle network resources with a retry
-        uses: nick-invision/retry@v2
-        with:
-          timeout_minutes: 10
-          retry_wait_seconds: 60
-          max_attempts: 3
-          command: ./gradlew :Sling:compilePlayDebugJavaWithJavac compileLint lint-rules:compileTestJava --daemon
-
       - name: Run Lint Debug
         uses: gradle/gradle-build-action@v2
         with:
           # "lint" is run under the 'Amazon' flavor, so slow in CI
           # "lintPlayRelease" doesn't test androidTest
           # "lintPlayDebug" doesn't test the API
-          arguments: lintPlayDebug :api:lintDebug ktLintCheck lint-rules:test --daemon
+          arguments: lintPlayDebug :api:lintDebug ktLintCheck lint-check:test --daemon
 
       - name: Prettify code
         uses: creyD/prettier_action@v4.2
