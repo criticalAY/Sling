@@ -16,6 +16,7 @@ android {
         targetSdk 33
         versionCode=10100101
         versionName="1.01alpha01"
+        buildToolsVersion "23.0.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -45,8 +46,7 @@ task installGitHook(type: Copy) {
 tasks.getByPath('preBuild').dependsOn installGitHook
 
 dependencies {
-    lintChecks project(path: ':Lint-Check')
-
+    lintChecks project(path: ':lint-check')
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.6.0'
     implementation 'com.google.android.material:material:1.8.0'
@@ -54,7 +54,7 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-
+    implementation 'androidx.test.ext:junit-ktx:1.1.5'
     // firebase services
     implementation platform('com.google.firebase:firebase-bom:31.2.0')
     implementation 'com.google.firebase:firebase-auth:21.1.0'
@@ -71,4 +71,6 @@ dependencies {
     implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
     // Testing Navigation
     androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
+    testImplementation 'org.mockito:mockito-inline:4.10.0'
+    testImplementation "org.mockito.kotlin:mockito-kotlin:4.1.0"
 }
