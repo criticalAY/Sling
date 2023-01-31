@@ -37,7 +37,6 @@ import com.uchi.sling.R
 import com.uchi.sling.utils.auth.FirebaseUtils.existingUserSignIn
 import com.uchi.sling.utils.auth.FirebaseUtils.firebaseAuth
 import com.uchi.sling.utils.googleData.GoogleSignInData
-import com.uchi.sling.utils.snackbars.showSnackbar
 import timber.log.Timber
 
 @Suppress("unused")
@@ -113,8 +112,6 @@ class LoginActivity : AppCompatActivity() {
         userEmail = userEmailInput.text.toString()
         userPassword = userPasswordInput.text.toString()
         if (!existingUserSignIn(userEmail, userPassword)) {
-            showSnackbar(getString(R.string.email_not_found))
-
         }
     }
 
