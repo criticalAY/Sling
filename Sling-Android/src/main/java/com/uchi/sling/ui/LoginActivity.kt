@@ -34,7 +34,7 @@ import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.GoogleAuthProvider
 import com.uchi.sling.R
-import com.uchi.sling.utils.auth.FirebaseUtils.existingUserSignIn
+import com.uchi.sling.utils.Utility
 import com.uchi.sling.utils.auth.FirebaseUtils.firebaseAuth
 import com.uchi.sling.utils.googleData.GoogleSignInData
 import timber.log.Timber
@@ -111,8 +111,11 @@ class LoginActivity : AppCompatActivity() {
     private fun initiateLogin() {
         userEmail = userEmailInput.text.toString()
         userPassword = userPasswordInput.text.toString()
-        if (!existingUserSignIn(userEmail, userPassword)) {
-        }
+        if (!Utility.isEmailValid(userEmail)) {
+            Toast.makeText(this, "email valid", Toast.LENGTH_SHORT).show()
+            emailInputLayout.error = "Please enter valid email"
+        } else emailInputLayout.isErrorEnabled = false
+
     }
 
     @Suppress("DEPRECATION")

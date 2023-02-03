@@ -20,32 +20,51 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     tools:context=".ui.LoginActivity">
 
-  <androidx.appcompat.widget.AppCompatImageView
-      android:id="@+id/gradient_top"
+  <LinearLayout
+      android:id="@+id/hello_text"
       android:layout_width="match_parent"
-      android:layout_height="180dp"
-      android:background="@drawable/gradient_login_background"
-      android:minHeight="180dp"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent" />
+      app:layout_constraintStart_toStartOf="parent">
 
-  <androidx.appcompat.widget.AppCompatImageView
-      android:id="@+id/gradient_top_right"
-      android:layout_width="match_parent"
-      android:layout_height="200dp"
-      android:background="@drawable/gradient_background_top_right"
-      android:minHeight="200dp"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent" />
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/hey_there"
+        android:fontFamily="@font/alata"
+        android:gravity="center"
+        android:textSize="18sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:fontFamily="@font/alata"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/welcome_back"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+  </LinearLayout>
 
   <com.google.android.material.textfield.TextInputLayout
       android:id="@+id/email_input_text_layout"
-      style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+      app:boxCornerRadiusTopEnd="20dp"
+      app:boxStrokeWidth="0dp"
+      app:boxStrokeWidthFocused="0dp"
+      app:boxCornerRadiusBottomEnd="20dp"
+      app:boxCornerRadiusBottomStart="20dp"
+      app:boxCornerRadiusTopStart="20dp"
+      style="@style/ThemeOverlay.Material3.TextInputEditText.FilledBox"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginHorizontal="30dp"
@@ -54,10 +73,9 @@
       app:endIconMode="clear_text"
       app:errorEnabled="true"
       android:hint="@string/email_label"
-      app:boxStrokeWidth="1dp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/gradient_top" >
+      app:layout_constraintTop_toBottomOf="@id/hello_text">
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/user_email"
@@ -70,12 +88,17 @@
 
   <com.google.android.material.textfield.TextInputLayout
       android:id="@+id/password_input_text_layout"
-      style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+      app:boxCornerRadiusTopEnd="20dp"
+      app:boxStrokeWidth="0dp"
+      app:boxStrokeWidthFocused="0dp"
+      app:boxCornerRadiusBottomEnd="20dp"
+      app:boxCornerRadiusBottomStart="20dp"
+      app:boxCornerRadiusTopStart="20dp"
+      style="@style/ThemeOverlay.Material3.TextInputEditText.FilledBox"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginHorizontal="30dp"
       android:hint="@string/password_label"
-      app:boxStrokeWidth="1dp"
       app:endIconMode="password_toggle"
       app:errorEnabled="true"
       app:startIconDrawable="@drawable/ic_key_24"
