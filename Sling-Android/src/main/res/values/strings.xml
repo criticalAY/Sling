@@ -15,6 +15,7 @@
     <string name="profile_type">Select profile type</string>
     <string name="hey_there">Hey there,</string>
     <string name="welcome_back">Welcome Back</string>
+    <string name="invalid_user">Check your Email or password</string>
     <string-array name="user_type">
         <item>Organisation</item>
         <item>Mentor</item>

@@ -18,6 +18,8 @@ package com.uchi.sling.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -35,6 +37,7 @@ import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.GoogleAuthProvider
 import com.uchi.sling.R
 import com.uchi.sling.utils.Utility
+import com.uchi.sling.utils.auth.FirebaseUtils.existingUserSignIn
 import com.uchi.sling.utils.auth.FirebaseUtils.firebaseAuth
 import com.uchi.sling.utils.googleData.GoogleSignInData
 import timber.log.Timber
@@ -70,21 +73,69 @@ class LoginActivity : AppCompatActivity() {
         forgotPassword = findViewById(R.id.action_forgot_password)
         googleSignIn = findViewById(R.id.action_google_sign_in)
 
-        if (!userEmailInput.text.isNullOrEmpty()) {
-            userEmail = userEmailInput.text.toString()
-        }
-        if (!userPasswordInput.text.isNullOrEmpty()) {
-            userPassword = userPasswordInput.text.toString()
-        }
+        buttonClickHandler()
+
+    }
+
+    private fun checkFieldsForEmptyValues() {
+        logonBtn.isEnabled = (!userEmailInput.text.isNullOrBlank()) && (userPasswordInput.text!!.length >= 8)
+    }
+
+    private fun buttonClickHandler() {
+        logonBtn.isEnabled = false
+
         newUser.setOnClickListener {
             startActivity(Intent(this, SignUpActivity::class.java))
         }
+
         forgotPassword.setOnClickListener {
-            // TODO: make an activity
+            // TODO: make an activity/fragment
         }
+
+        userEmailInput.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                checkFieldsForEmptyValues()
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // not needed
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // not needed
+            }
+        })
+
+        userPasswordInput.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                checkFieldsForEmptyValues()
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // not needed
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // not needed
+            }
+        })
+
+        //     call this method at signup pafe
+//        userPasswordInput.addTextChangedListener (object : TextWatcher {
+//
+//            override fun afterTextChanged(s: Editable) {}
+//
+//            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+//            }
+//
+//            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+//               if(!isValidPassword(userPasswordInput.text.toString())){
+//                  passwordInputLayout.isErrorEnabled = true
+//                  passwordInputLayout.error = ""
+//               }
+//                else passwordInputLayout.isErrorEnabled = false
+//            }
+//        })
 
         logonBtn.setOnClickListener {
             // TODO put a check to check null and correct email password format
+            Timber.w("Log in button clicked")
             initiateLogin()
         }
         FirebaseApp.initializeApp(this)
@@ -92,7 +143,6 @@ class LoginActivity : AppCompatActivity() {
             Timber.d("Google Sign in clicked")
             signInGoogle()
         }
-
     }
 
     @Suppress("DEPRECATION")
@@ -116,6 +166,12 @@ class LoginActivity : AppCompatActivity() {
             emailInputLayout.error = "Please enter valid email"
         } else emailInputLayout.isErrorEnabled = false
 
+        if (!existingUserSignIn(userEmail, userPassword)) {
+            passwordInputLayout.isErrorEnabled = true
+            passwordInputLayout.error = getString(R.string.invalid_user)
+        } else {
+            passwordInputLayout.isErrorEnabled = false
+        }
     }
 
     @Suppress("DEPRECATION")
