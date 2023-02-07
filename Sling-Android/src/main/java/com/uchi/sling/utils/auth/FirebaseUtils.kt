@@ -44,6 +44,15 @@ object FirebaseUtils {
 //                }
 //        }
 //    }
+    /** reset password by passing the user email **/
+    fun userPasswordReset(email: String) {
+        firebaseAuth.sendPasswordResetEmail(email)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Timber.d("Password reset Email sent")
+                }
+            }
+    }
 
     /** existing user can sign in using their email and password **/
     fun existingUserSignIn(userEmail: String, userPassword: String): Boolean {

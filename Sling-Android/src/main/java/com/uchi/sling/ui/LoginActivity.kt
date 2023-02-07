@@ -51,7 +51,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var emailInputLayout: TextInputLayout
     private lateinit var passwordInputLayout: TextInputLayout
     private lateinit var newUser: TextView
-    private lateinit var forgotPassword: TextView
+    private lateinit var resetUserPassword: TextView
     private lateinit var logonBtn: Button
     private lateinit var googleSignIn: TextView
     lateinit var mGoogleSignInClient: GoogleSignInClient
@@ -70,9 +70,10 @@ class LoginActivity : AppCompatActivity() {
         userEmailInput = findViewById(R.id.user_email)
         userPasswordInput = findViewById(R.id.user_password)
         newUser = findViewById(R.id.action_new_user)
-        forgotPassword = findViewById(R.id.action_forgot_password)
         googleSignIn = findViewById(R.id.action_google_sign_in)
+        resetUserPassword = findViewById(R.id.action_forgot_password)
 
+        FirebaseApp.initializeApp(this)
         buttonClickHandler()
 
     }
@@ -88,8 +89,8 @@ class LoginActivity : AppCompatActivity() {
             startActivity(Intent(this, SignUpActivity::class.java))
         }
 
-        forgotPassword.setOnClickListener {
-            // TODO: make an activity/fragment
+        resetUserPassword.setOnClickListener {
+            // TODO: Reset password should have different page
         }
 
         userEmailInput.addTextChangedListener(object : TextWatcher {
@@ -138,7 +139,6 @@ class LoginActivity : AppCompatActivity() {
             Timber.w("Log in button clicked")
             initiateLogin()
         }
-        FirebaseApp.initializeApp(this)
         googleSignIn.setOnClickListener {
             Timber.d("Google Sign in clicked")
             signInGoogle()

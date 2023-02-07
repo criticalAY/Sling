@@ -17,7 +17,8 @@
             android:exported="false" />
         <activity
             android:name=".ui.SignUpActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan|adjustResize"/>
         <activity
             android:name=".ui.SplashScreenActivity"
             android:exported="true"
