@@ -16,6 +16,21 @@
     <string name="hey_there">Hey there,</string>
     <string name="welcome_back">Welcome Back</string>
     <string name="invalid_user">Check your Email or password</string>
+    <string name="next">Next</string>
+    <string name="name_of_organisation">Name of organisation</string>
+    <string name="organisation_e_mail">Organisation e-mail</string>
+    <string name="type_of_org">Type of org.</string>
+    <string name="address_of_org">Address of org.</string>
+    <string name="country">Country</string>
+    <string name="pin_code">Pin code</string>
+    <string name="organisation_code">Organisation Code</string>
+    <string name="your_name">Your name</string>
+    <string name="your_e_mail">Your e-mail</string>
+    <string name="designation">Designation</string>
+    <string name="primary_subject_s">Primary Subject/s</string>
+    <string name="mentor_s_code">Mentor\'s code</string>
+    <string name="current_std">Current std</string>
+    <string name="course">Course</string>
     <string-array name="user_type">
         <item>Organisation</item>
         <item>Mentor</item>
