@@ -1,0 +1,76 @@
+  @OptIn(DelicateCoroutinesApi::class)
+    private fun warnNoSyncDuringMigration() {
+        // TODO: Fetch and display real numbers
+
+        val preferences = getSharedPrefs(this)
+        val migrateUserData = MigrateUserData.createInstance(preferences)
+        val percentLiveData = MutableLiveData<Int>()
+
+        if (migrateUserData != null) {
+            GlobalScope.launch {
+                val files = async { migrateUserData.getUserDataFiles() }
+                percentLiveData.postValue(files.await().count())
+            }
+        }
+
+//        lifecycleScope.launch {
+//            migrationService.flowOfPercentageComplete.collect {
+//                    percentage -> progressWidget.percentage = percentage }
+//        }
+
+
+
+
+        val progressDialogView = layoutInflater.inflate(R.layout.indeterminate_progress_bar, null)
+        val progressBar = progressDialogView.findViewById<ProgressBar>(R.id.indeterminate_progressBar)
+        var percent=0
+        progressBar.apply {
+            progress = percent
+            max = 99 }
+
+
+        val progressText = progressDialogView.findViewById<TextView>(R.id.migration_text)
+        progressText.text =  resources.getString(R.string.sync_impossible_during_migration, percent)
+        MaterialDialog(this).show {
+            message(text = resources.getString(R.string.sync_impossible_during_migration, 5))
+            customView(view = progressDialogView, noVerticalPadding = true)
+            positiveButton(res = R.string.dialog_ok)
+            negativeButton(res = R.string.scoped_storage_learn_more) {
+                openUrl(R.string.link_scoped_storage_faq)
+            }
+            percentLiveData.observe(this@DeckPicker, Observer {
+                progressText.text = resources.getString(R.string.sync_impossible_during_migration, it)
+                progressBar.progress = it
+            })
+        }
+
+//        val preferences = getSharedPrefs(this)
+//        val migrateUserData = MigrateUserData.createInstance(preferences)
+//        if (migrateUserData != null) {
+//            val files = migrateUserData.getUserDataFiles()
+//            percent = files.fold(0) { acc, _ -> acc + 1 }
+//            val filesAsText = StringBuilder()
+//            for (file in migrateUserData.getUserDataFiles()) {
+//                filesAsText.append(file.name + "\n")
+//            }
+//            Timber.i(filesAsText.toString())
+//        }
+
+
+
+//        Thread {
+//            for (i in 1..100) {
+//                Thread.sleep(50)
+//                container.post {
+//                    progressBar.progress = i
+//                }
+//            }
+//        }.start()
+    }
+
+
+
+
+
+
+
