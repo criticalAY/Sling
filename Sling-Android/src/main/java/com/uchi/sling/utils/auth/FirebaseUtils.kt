@@ -18,12 +18,15 @@ package com.uchi.sling.utils.auth
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.FirebaseDatabase
 import timber.log.Timber
 
 @Suppress("unused")
 object FirebaseUtils {
     val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
     val firebaseUser: FirebaseUser? = firebaseAuth.currentUser
+    val firebaseDatabase = FirebaseDatabase.getInstance().reference
+    val userId = firebaseUser?.uid
 
 //    private fun emailSignUp() {
 //        if (identicalPassword()) {

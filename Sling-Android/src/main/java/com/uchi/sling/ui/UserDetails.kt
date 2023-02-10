@@ -23,9 +23,8 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
-import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.textfield.TextInputEditText
 import com.uchi.sling.R
-import com.uchi.sling.utils.snackbars.showSnackbar
 
 /**
  * A simple [Fragment] subclass.
@@ -35,6 +34,12 @@ import com.uchi.sling.utils.snackbars.showSnackbar
 class UserDetails : Fragment() {
     private val userArgs: UserDetailsArgs by navArgs()
     var uProfileCode: Int? = null
+    lateinit var orgCode: TextInputEditText
+    lateinit var memberName: TextInputEditText
+    lateinit var memberEmail: TextInputEditText
+    lateinit var memberDesignation: TextInputEditText
+    lateinit var memberPrimaryField: TextInputEditText
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -57,7 +62,6 @@ class UserDetails : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         uProfileCode = userArgs.userTypeArg
-        this.showSnackbar(uProfileCode.toString(), Snackbar.LENGTH_LONG)
         // TODO: diff codes/methods according to profile type
         // TODO: Init sql database here and store user data and the type of profile they made
         // TODO: Save this data to firebase
