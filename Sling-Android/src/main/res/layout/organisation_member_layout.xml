@@ -52,8 +52,10 @@
                 android:layout_margin="4dp"
                 style="@style/ThemeOverlay.Material3.TextInputEditText.FilledBox">
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/organisation_code"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:autofillHints="off"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -70,6 +72,7 @@
                 android:layout_margin="4dp"
                 style="@style/ThemeOverlay.Material3.TextInputEditText.FilledBox">
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/organisation_member_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -93,6 +96,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/organisation_member_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:boxCornerRadiusTopEnd="20dp"
@@ -124,6 +128,7 @@
                 android:layout_margin="4dp"
                 style="@style/ThemeOverlay.Material3.TextInputEditText.FilledBox">
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/organisation_member_primary_subject"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             </com.google.android.material.textfield.TextInputLayout>
