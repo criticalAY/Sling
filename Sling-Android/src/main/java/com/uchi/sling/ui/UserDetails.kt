@@ -40,6 +40,14 @@ class UserDetails : Fragment() {
     lateinit var memberDesignation: TextInputEditText
     lateinit var memberPrimaryField: TextInputEditText
 
+    // organisation views
+    lateinit var orgName: TextInputEditText
+    lateinit var orgEmail: TextInputEditText
+    lateinit var orgType: TextInputEditText
+    lateinit var orgAddress: TextInputEditText
+    lateinit var orgCountryPinCode: TextInputEditText
+    lateinit var orgCountry: TextInputEditText
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -62,6 +70,13 @@ class UserDetails : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         uProfileCode = userArgs.userTypeArg
+        when (uProfileCode) {
+            0 -> {
+                orgName = view.findViewById(R.id.org_name)
+                orgEmail = view.findViewById(R.id.org_email)
+                orgType = view.findViewById(R.id.org_type)
+            }
+        }
         // TODO: diff codes/methods according to profile type
         // TODO: Init sql database here and store user data and the type of profile they made
         // TODO: Save this data to firebase
