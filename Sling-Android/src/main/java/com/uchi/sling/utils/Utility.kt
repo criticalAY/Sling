@@ -17,8 +17,12 @@
 package com.uchi.sling.utils
 
 import android.app.Activity
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Patterns
 import android.view.inputmethod.InputMethodManager
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
@@ -39,5 +43,27 @@ object Utility {
     fun hideSoftKeyboard(activity: Activity) {
         val inputMethodManager = activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(activity.currentFocus?.windowToken, 0)
+    }
+
+    fun emailCheck(
+        editText: TextInputEditText,
+        editTextInputLayout: TextInputLayout,
+        errorText: String
+    ) {
+        editText.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                if (!isEmailValid(editText.text?.trim().toString())) {
+                    editTextInputLayout.isErrorEnabled = true
+                    editTextInputLayout.error = errorText
+                } else editTextInputLayout.isErrorEnabled = false
+
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // not needed
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // not needed
+            }
+        })
     }
 }
