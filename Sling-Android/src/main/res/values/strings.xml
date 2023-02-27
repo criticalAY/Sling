@@ -32,6 +32,7 @@
     <string name="current_std">Current std</string>
     <string name="course">Course</string>
     <string name="invalid_email">Enter a valid Email`</string>
+    <string name="re_enter_password">Re enter password</string>
     <string-array name="user_type">
         <item>Organisation</item>
         <item>Mentor</item>

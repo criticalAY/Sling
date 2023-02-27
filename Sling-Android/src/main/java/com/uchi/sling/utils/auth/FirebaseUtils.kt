@@ -18,9 +18,16 @@ package com.uchi.sling.utils.auth
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.uchi.sling.room.IndividualData
+import com.uchi.sling.room.MentorData
 import com.uchi.sling.room.OrganisationData
 import timber.log.Timber
+
+const val FB_MENTOR_COLLECTION = "mentor"
+const val FB_INDIVIDUAL_COLLECTION = "individual"
+const val FB_ORGANISATION_COLLECTION = "organisation"
 
 @Suppress("unused")
 object FirebaseUtils {
@@ -29,14 +36,36 @@ object FirebaseUtils {
     val firebaseDatabase = FirebaseDatabase.getInstance().reference
     val userId = firebaseUser?.uid
 
-    var usersRef = firebaseDatabase.child(FB_ORGANISATION_COLLECTION)
+    private val orgRef: DatabaseReference by lazy { firebaseDatabase.child(FB_ORGANISATION_COLLECTION) }
+    private val mentorRef = firebaseDatabase.child(FB_MENTOR_COLLECTION)
+    private val individualRef = firebaseDatabase.child(FB_INDIVIDUAL_COLLECTION)
 
-    fun uploadOrganisationData(data: OrganisationData) {
-        usersRef = usersRef.child(userId.toString())
-        val key = usersRef.push().key
+    /** upload data as a organisation **/
+    fun uploadFbData(data: OrganisationData) {
+        val orgUser = orgRef.child(userId.toString())
+        val key = orgUser.push().key
         if (key != null) {
             // should never be null
-            usersRef.child(key).setValue(data)
+            orgUser.child(key).setValue(data)
+        }
+    }
+    /** upload data as a mentor **/
+    fun uploadFbData(data: MentorData) {
+        val mentorUser = mentorRef.child(userId.toString())
+        val key = mentorUser.push().key
+        if (key != null) {
+            // should never be null
+            mentorUser.child(key).setValue(data)
+        }
+    }
+
+    /** upload data as a individual **/
+    fun uploadFbData(data: IndividualData) {
+        val individualUser = individualRef.child(userId.toString())
+        val key = individualUser.push().key
+        if (key != null) {
+            // should never be null
+            individualUser.child(key).setValue(data)
         }
     }
 
@@ -126,7 +155,4 @@ object FirebaseUtils {
     fun signOut() {
         firebaseAuth.signOut()
     }
-
-    private const val FB_ORGANISATION_COLLECTION: String = "organisation"
-
 }
