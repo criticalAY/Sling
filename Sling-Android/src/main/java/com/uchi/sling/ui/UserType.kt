@@ -24,6 +24,9 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.uchi.sling.R
@@ -52,7 +55,13 @@ class UserType : Fragment() {
                 userVarArg = position
             }
         proceedToUserDetails.setOnClickListener {
-            findNavController().navigate(UserTypeDirections.actionUserTypeToUserDetails(userVarArg!!.toInt()))
+//            findNavController().navigate(UserTypeDirections.actionUserTypeToUserDetails(userVarArg!!.toInt()))
+            findNavController().navigate(UserTypeDirections.actionUserTypeToEmailRegistration())
+            //  findNavController().navigate(UserTypeDirections).actio
+            // findNavController().navigate(UserTypeDirections).actionUserTypeToEmailRegistration(userVarArg!!.toInt())
+            val userTypeViewModel = ViewModelProvider(requireActivity())[UserTypeViewModel::class.java]
+            userTypeViewModel.sharedData.value = userVarArg!!.toInt()
+
         }
 
     }
@@ -69,4 +78,8 @@ class UserType : Fragment() {
         return view
     }
 
+}
+
+class UserTypeViewModel : ViewModel() {
+    val sharedData = MutableLiveData<Int>()
 }

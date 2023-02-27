@@ -11,12 +11,8 @@
         android:label="fragment_user_type"
         tools:layout="@layout/fragment_user_type" >
         <action
-            android:id="@+id/action_userType_to_userDetails"
-            app:destination="@id/userDetails"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+            android:id="@+id/action_userType_to_emailRegistration"
+            app:destination="@id/emailRegistration" />
     </fragment>
     <fragment
         android:id="@+id/userDetails"
@@ -26,5 +22,14 @@
         <argument
             android:name="user_type_arg"
             app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/emailRegistration"
+        android:name="com.uchi.sling.ui.EmailRegistration"
+        android:label="fragment_email_registration"
+        tools:layout="@layout/fragment_email_registration" >
+        <action
+            android:id="@+id/action_emailRegistration_to_userDetails"
+            app:destination="@id/userDetails" />
     </fragment>
 </navigation>
