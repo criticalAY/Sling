@@ -58,6 +58,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/org_email_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:boxCornerRadiusTopEnd="20dp"
@@ -73,7 +74,8 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/org_email"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -113,6 +115,7 @@
                 android:layout_margin="4dp"
                 style="@style/ThemeOverlay.Material3.TextInputEditText.FilledBox">
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/org_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -131,6 +134,7 @@
                 android:layout_margin="4dp"
                 style="@style/ThemeOverlay.Material3.TextInputEditText.FilledBox">
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/org_country_pin_code"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -149,6 +153,7 @@
                 android:layout_margin="4dp"
                 style="@style/ThemeOverlay.Material3.TextInputEditText.FilledBox">
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/org_country"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             </com.google.android.material.textfield.TextInputLayout>

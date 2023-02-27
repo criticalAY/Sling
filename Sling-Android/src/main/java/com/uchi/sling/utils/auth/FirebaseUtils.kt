@@ -19,6 +19,7 @@ package com.uchi.sling.utils.auth
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.FirebaseDatabase
+import com.uchi.sling.room.OrganisationData
 import timber.log.Timber
 
 @Suppress("unused")
@@ -27,6 +28,17 @@ object FirebaseUtils {
     val firebaseUser: FirebaseUser? = firebaseAuth.currentUser
     val firebaseDatabase = FirebaseDatabase.getInstance().reference
     val userId = firebaseUser?.uid
+
+    var usersRef = firebaseDatabase.child(FB_ORGANISATION_COLLECTION)
+
+    fun uploadOrganisationData(data: OrganisationData) {
+        usersRef = usersRef.child(userId.toString())
+        val key = usersRef.push().key
+        if (key != null) {
+            // should never be null
+            usersRef.child(key).setValue(data)
+        }
+    }
 
 //    private fun emailSignUp() {
 //        if (identicalPassword()) {
@@ -114,5 +126,7 @@ object FirebaseUtils {
     fun signOut() {
         firebaseAuth.signOut()
     }
+
+    private const val FB_ORGANISATION_COLLECTION: String = "organisation"
 
 }
