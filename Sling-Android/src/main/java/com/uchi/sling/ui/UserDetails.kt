@@ -30,6 +30,7 @@ import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.uchi.sling.R
+import com.uchi.sling.room.OrganisationData
 import com.uchi.sling.utils.Utility
 
 /**
@@ -108,7 +109,7 @@ class UserDetails : Fragment() {
             } else orgEmailLayout.isErrorEnabled = false
         }
 
-        //  val orgData = OrganisationData(orgNameText, orgEmailText, orgTypeText, orgAddressText, orgCountryPinCodeText, orgCountryText)
+        val orgData = OrganisationData(orgNameText, orgEmailText, orgTypeText, orgAddressText, orgCountryPinCodeText, orgCountryText)
 
     }
     // TODO: diff codes/methods according to profile type
