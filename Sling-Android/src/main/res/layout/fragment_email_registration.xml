@@ -26,6 +26,7 @@
     android:layout_marginTop="100dp">
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/email_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:boxCornerRadiusTopEnd="20dp"
@@ -39,6 +40,7 @@
         android:layout_margin="4dp"
         style="@style/ThemeOverlay.Material3.TextInputEditText.FilledBox">
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/registration_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </com.google.android.material.textfield.TextInputLayout>
@@ -53,15 +55,22 @@
         app:boxCornerRadiusBottomStart="20dp"
         app:hintEnabled="true"
         android:hint="@string/password_label"
+        app:endIconMode="password_toggle"
         app:boxCornerRadiusTopStart="20dp"
         android:layout_margin="4dp"
         style="@style/ThemeOverlay.Material3.TextInputEditText.FilledBox">
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/password_t1"
+            android:maxLines="1"
+            android:maxLength="16"
+            android:maxEms="10"
+            android:inputType="textPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/registration_password_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:boxCornerRadiusTopEnd="20dp"
@@ -71,10 +80,16 @@
         app:boxCornerRadiusBottomStart="20dp"
         app:hintEnabled="true"
         android:hint="@string/re_enter_password"
+        app:endIconMode="password_toggle"
         app:boxCornerRadiusTopStart="20dp"
         android:layout_margin="4dp"
         style="@style/ThemeOverlay.Material3.TextInputEditText.FilledBox">
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/password_t2"
+            android:maxLines="1"
+            android:maxLength="16"
+            android:maxEms="10"
+            android:inputType="textPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </com.google.android.material.textfield.TextInputLayout>

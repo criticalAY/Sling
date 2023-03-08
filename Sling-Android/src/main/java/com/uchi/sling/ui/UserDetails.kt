@@ -89,7 +89,7 @@ class UserDetails : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         uProfileCode = userArgs.userTypeArg
         nextButton = view.findViewById(R.id.user_input_next_button)
-        orgEmailLayout = view.findViewById(R.id.org_email_layout)
+        orgEmailLayout = view.findViewById(R.id.email_layout)
         when (uProfileCode) {
             0 -> {
                 orgName = view.findViewById(R.id.org_name)
