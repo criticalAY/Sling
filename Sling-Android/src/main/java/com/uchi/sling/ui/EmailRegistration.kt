@@ -31,6 +31,7 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.uchi.sling.R
 import com.uchi.sling.utils.Utility
+import com.uchi.sling.utils.auth.FirebaseUtils
 
 class EmailRegistration : Fragment() {
     lateinit var nextButton: Button
@@ -67,6 +68,7 @@ class EmailRegistration : Fragment() {
 
         nextButton.setOnClickListener {
             if (registrationEmailCheck()) {
+                FirebaseUtils.newUserEmailSignUp(registrationEmail.text.toString(), rePasswordText.text.toString())
                 findNavController().navigate(EmailRegistrationDirections.actionEmailRegistrationToUserDetails(userProfile))
             } else Toast.makeText(context, "fdfd", Toast.LENGTH_SHORT).show()
 
@@ -119,7 +121,6 @@ class EmailRegistration : Fragment() {
                     passwordTextLayout.isErrorEnabled = false
                 }
             }
-
         })
 
     }
