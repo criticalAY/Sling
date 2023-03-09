@@ -39,6 +39,30 @@
             android:orientation="vertical">
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/email_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxCornerRadiusTopEnd="20dp"
+                app:boxStrokeWidth="0dp"
+                android:focusable="false"
+                app:boxStrokeWidthFocused="0dp"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxCornerRadiusBottomStart="20dp"
+                app:hintEnabled="true"
+                android:hint="@string/organisation_e_mail"
+                app:boxCornerRadiusTopStart="20dp"
+                android:layout_margin="4dp"
+                style="@style/ThemeOverlay.Material3.TextInputEditText.FilledBox">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/org_email"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:boxCornerRadiusTopEnd="20dp"
@@ -55,27 +79,6 @@
                     android:id="@+id/org_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/email_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:boxCornerRadiusTopEnd="20dp"
-                app:boxStrokeWidth="0dp"
-                app:boxStrokeWidthFocused="0dp"
-                app:boxCornerRadiusBottomEnd="20dp"
-                app:boxCornerRadiusBottomStart="20dp"
-                app:hintEnabled="true"
-                android:hint="@string/organisation_e_mail"
-                app:boxCornerRadiusTopStart="20dp"
-                android:layout_margin="4dp"
-                style="@style/ThemeOverlay.Material3.TextInputEditText.FilledBox">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/org_email"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout

@@ -16,6 +16,7 @@
 
 package com.uchi.sling.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -23,6 +24,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.AutoCompleteTextView
 import android.widget.Button
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.textfield.TextInputEditText
@@ -30,7 +32,8 @@ import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.uchi.sling.R
-import com.uchi.sling.utils.Utility
+import com.uchi.sling.room.OrganisationData
+import com.uchi.sling.utils.auth.FirebaseUtils
 
 /**
  * A simple [Fragment] subclass.
@@ -58,13 +61,6 @@ class UserDetails : Fragment() {
     lateinit var orgCountry: TextInputEditText
 
     lateinit var orgEmailLayout: TextInputLayout
-
-    lateinit var orgEmailText: String
-    lateinit var orgNameText: String
-    lateinit var orgTypeText: String
-    lateinit var orgAddressText: String
-    lateinit var orgCountryPinCodeText: String
-    lateinit var orgCountryText: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -98,18 +94,44 @@ class UserDetails : Fragment() {
                 orgAddress = view.findViewById(R.id.org_address)
                 orgCountryPinCode = view.findViewById(R.id.org_country_pin_code)
                 orgCountry = view.findViewById(R.id.org_country)
+                organisationRegistration()
             }
         }
-        nextButton.setOnClickListener {
-            if (!Utility.isEmailValid(orgEmail.text)) {
-                orgEmailLayout.isErrorEnabled = true
-                orgEmailLayout.error = resources.getString(R.string.invalid_email)
-                Utility.emailCheck(orgEmail, orgEmailLayout, resources.getString(R.string.invalid_email))
-            } else orgEmailLayout.isErrorEnabled = false
-        }
+//        nextButton.setOnClickListener {
+//            if (!Utility.isEmailValid(orgEmail.text)) {
+//                orgEmailLayout.isErrorEnabled = true
+//                orgEmailLayout.error = resources.getString(R.string.invalid_email)
+//                Utility.emailCheck(orgEmail, orgEmailLayout, resources.getString(R.string.invalid_email))
+//            } else orgEmailLayout.isErrorEnabled = false
+//        }
 
         //  val orgData = OrganisationData(orgNameText, orgEmailText, orgTypeText, orgAddressText, orgCountryPinCodeText, orgCountryText)
 
+    }
+
+    private fun organisationRegistration() {
+        orgEmail.setText(FirebaseUtils.firebaseUser?.email)
+
+        nextButton.setOnClickListener {
+            Toast.makeText(context, "uploaded", Toast.LENGTH_SHORT).show()
+            val orgData = OrganisationData(
+                orgName.text.toString(),
+                orgEmail.text.toString(),
+                "hardco ded",
+                orgAddress.text.toString(),
+                orgCountryPinCode.text.toString(),
+                orgCountry.text.toString()
+            )
+            FirebaseUtils.uploadFbData(orgData)
+            goToDashboard()
+        }
+    }
+
+    private fun goToDashboard() {
+        val intent = Intent(activity, DashboardActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+        activity?.startActivity(intent)
+        activity?.finish()
     }
     // TODO: diff codes/methods according to profile type
     // TODO: Init sql database here and store user data and the type of profile they made

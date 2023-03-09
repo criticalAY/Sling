@@ -46,7 +46,7 @@ object FirebaseUtils {
         val key = orgUser.push().key
         if (key != null) {
             // should never be null
-            orgUser.child(key).setValue(data)
+            orgUser.setValue(data)
         }
     }
     /** upload data as a mentor **/
@@ -55,7 +55,7 @@ object FirebaseUtils {
         val key = mentorUser.push().key
         if (key != null) {
             // should never be null
-            mentorUser.child(key).setValue(data)
+            mentorUser.setValue(data)
         }
     }
 
@@ -65,7 +65,7 @@ object FirebaseUtils {
         val key = individualUser.push().key
         if (key != null) {
             // should never be null
-            individualUser.child(key).setValue(data)
+            individualUser.setValue(data)
         }
     }
 
