@@ -47,6 +47,25 @@
                 app:boxCornerRadiusBottomEnd="20dp"
                 app:boxCornerRadiusBottomStart="20dp"
                 app:hintEnabled="true"
+                android:hint="@string/your_e_mail"
+                app:boxCornerRadiusTopStart="20dp"
+                android:layout_margin="4dp"
+                style="@style/ThemeOverlay.Material3.TextInputEditText.FilledBox">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/organisation_member_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxCornerRadiusTopEnd="20dp"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxCornerRadiusBottomStart="20dp"
+                app:hintEnabled="true"
                 android:hint="@string/organisation_code"
                 app:boxCornerRadiusTopStart="20dp"
                 android:layout_margin="4dp"
@@ -86,30 +105,12 @@
                 app:boxCornerRadiusBottomEnd="20dp"
                 app:boxCornerRadiusBottomStart="20dp"
                 app:hintEnabled="true"
-                android:hint="@string/your_e_mail"
-                app:boxCornerRadiusTopStart="20dp"
-                android:layout_margin="4dp"
-                style="@style/ThemeOverlay.Material3.TextInputEditText.FilledBox">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/organisation_member_email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:boxCornerRadiusTopEnd="20dp"
-                app:boxStrokeWidth="0dp"
-                app:boxStrokeWidthFocused="0dp"
-                app:boxCornerRadiusBottomEnd="20dp"
-                app:boxCornerRadiusBottomStart="20dp"
-                app:hintEnabled="true"
                 android:hint="@string/designation"
                 app:boxCornerRadiusTopStart="20dp"
                 android:layout_margin="4dp"
                 style="@style/ThemeOverlay.Material3.TextInputEditText.FilledBox">
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/organisation_member_designation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             </com.google.android.material.textfield.TextInputLayout>
