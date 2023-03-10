@@ -29,11 +29,12 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import com.uchi.sling.R
+import com.uchi.sling.room.IndividualData
+import com.uchi.sling.room.MemberData
 import com.uchi.sling.room.OrganisationData
 import com.uchi.sling.utils.auth.FirebaseUtils
+import timber.log.Timber
 
 /**
  * A simple [Fragment] subclass.
@@ -45,14 +46,22 @@ class UserDetails : Fragment() {
     private var uProfileCode: Int? = null
 
     lateinit var nextButton: Button
+
+    // organisation member
     lateinit var orgCode: TextInputEditText
     lateinit var memberName: TextInputEditText
     lateinit var memberEmail: TextInputEditText
     lateinit var memberDesignation: TextInputEditText
     lateinit var memberPrimaryField: TextInputEditText
-    private val dbFirebase = Firebase.firestore
 
-    // organisation views
+    // individual
+    lateinit var mentorCode: TextInputEditText
+    lateinit var individualCourse: TextInputEditText
+    lateinit var individualName: TextInputEditText
+    lateinit var individualEmail: TextInputEditText
+    lateinit var individualStd: TextInputEditText
+
+    // organisation
     lateinit var orgName: TextInputEditText
     lateinit var orgEmail: TextInputEditText
     lateinit var orgType: AutoCompleteTextView
@@ -96,6 +105,23 @@ class UserDetails : Fragment() {
                 orgCountry = view.findViewById(R.id.org_country)
                 organisationRegistration()
             }
+            1 -> {
+                orgCode = view.findViewById(R.id.organisation_code)
+                memberName = view.findViewById(R.id.organisation_member_name)
+                memberEmail = view.findViewById(R.id.organisation_member_email)
+                memberDesignation = view.findViewById(R.id.organisation_member_designation)
+                memberPrimaryField = view.findViewById(R.id.organisation_member_primary_subject)
+                orgMemberRegistration()
+
+            }
+            2 -> {
+                mentorCode = view.findViewById(R.id.metor_code)
+                individualEmail = view.findViewById(R.id.individual_email)
+                individualName = view.findViewById(R.id.individual_name)
+                individualCourse = view.findViewById(R.id.individual_courses)
+                individualStd = view.findViewById(R.id.individual_std)
+                individualRegistration()
+            }
         }
 //        nextButton.setOnClickListener {
 //            if (!Utility.isEmailValid(orgEmail.text)) {
@@ -107,6 +133,38 @@ class UserDetails : Fragment() {
 
         //  val orgData = OrganisationData(orgNameText, orgEmailText, orgTypeText, orgAddressText, orgCountryPinCodeText, orgCountryText)
 
+    }
+
+    private fun individualRegistration() {
+        individualEmail.setText(FirebaseUtils.firebaseUser?.email)
+        val individualData = IndividualData(
+            mentorCode.text.toString(),
+            individualCourse.text.toString(),
+            individualName.text.toString(),
+            individualEmail.text.toString(),
+            individualStd.text.toString()
+        )
+        nextButton.setOnClickListener {
+            FirebaseUtils.uploadFbData(individualData)
+            Timber.i("Uploaded organisation Individual data to Firebase")
+            goToDashboard()
+        }
+    }
+
+    private fun orgMemberRegistration() {
+        memberEmail.setText(FirebaseUtils.firebaseUser?.email)
+        nextButton.setOnClickListener {
+            val memberData = MemberData(
+                orgCode.text.toString(),
+                memberName.text.toString(),
+                memberEmail.text.toString(),
+                memberDesignation.text.toString(),
+                memberPrimaryField.text.toString()
+            )
+            FirebaseUtils.uploadFbData(memberData)
+            Timber.i("Uploaded organisation member data to Firebase")
+            goToDashboard()
+        }
     }
 
     private fun organisationRegistration() {
@@ -122,6 +180,7 @@ class UserDetails : Fragment() {
                 orgCountryPinCode.text.toString(),
                 orgCountry.text.toString()
             )
+            Timber.i("Uploaded organisation data to Firebase")
             FirebaseUtils.uploadFbData(orgData)
             goToDashboard()
         }

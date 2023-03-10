@@ -26,17 +26,19 @@ data class OrganisationData(
 )
 
 data class IndividualData(
-    val mentorCode: List<String>,
+    // TODO: mentor code remove string and addd list
+    val mentorCode: String,
     val indCourse: String,
     val indName: String,
     val indEmail: String,
     val indStandard: String,
 )
 
-data class MentorData(
-    val orgCode: List<String>,
+data class MemberData(
+    // TODO: Add multiple subjects remove string and add list
+    val orgCode: String,
     val mentorName: String,
     val mentorEmail: String,
     val mentorDesignation: String,
-    val mentorPrimarySubject: List<String>,
+    val mentorPrimarySubject: String,
 )

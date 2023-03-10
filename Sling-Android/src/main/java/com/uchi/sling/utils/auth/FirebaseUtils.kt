@@ -21,7 +21,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.uchi.sling.room.IndividualData
-import com.uchi.sling.room.MentorData
+import com.uchi.sling.room.MemberData
 import com.uchi.sling.room.OrganisationData
 import timber.log.Timber
 
@@ -35,7 +35,6 @@ object FirebaseUtils {
     val firebaseUser: FirebaseUser? = firebaseAuth.currentUser
     val firebaseDatabase = FirebaseDatabase.getInstance().reference
     val userId = firebaseUser?.uid
-
     private val orgRef: DatabaseReference by lazy { firebaseDatabase.child(FB_ORGANISATION_COLLECTION) }
     private val mentorRef = firebaseDatabase.child(FB_MENTOR_COLLECTION)
     private val individualRef = firebaseDatabase.child(FB_INDIVIDUAL_COLLECTION)
@@ -50,7 +49,7 @@ object FirebaseUtils {
         }
     }
     /** upload data as a mentor **/
-    fun uploadFbData(data: MentorData) {
+    fun uploadFbData(data: MemberData) {
         val mentorUser = mentorRef.child(userId.toString())
         val key = mentorUser.push().key
         if (key != null) {
