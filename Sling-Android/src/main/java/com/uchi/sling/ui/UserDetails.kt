@@ -22,13 +22,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.AutoCompleteTextView
-import android.widget.Button
-import android.widget.Toast
+import android.widget.*
+import androidx.appcompat.widget.AppCompatAutoCompleteTextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import com.google.firebase.auth.FirebaseAuth
 import com.uchi.sling.R
 import com.uchi.sling.room.IndividualData
 import com.uchi.sling.room.MemberData
@@ -65,6 +65,7 @@ class UserDetails : Fragment() {
     lateinit var orgName: TextInputEditText
     lateinit var orgEmail: TextInputEditText
     lateinit var orgType: AutoCompleteTextView
+    lateinit var orgTypeText: String
     lateinit var orgAddress: TextInputEditText
     lateinit var orgCountryPinCode: TextInputEditText
     lateinit var orgCountry: TextInputEditText
@@ -94,15 +95,29 @@ class UserDetails : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         uProfileCode = userArgs.userTypeArg
         nextButton = view.findViewById(R.id.user_input_next_button)
-        orgEmailLayout = view.findViewById(R.id.email_layout)
         when (uProfileCode) {
             0 -> {
+                orgEmailLayout = view.findViewById(R.id.email_layout)
                 orgName = view.findViewById(R.id.org_name)
-                orgEmail = view.findViewById(R.id.org_email)
                 orgType = view.findViewById(R.id.org_type)
                 orgAddress = view.findViewById(R.id.org_address)
                 orgCountryPinCode = view.findViewById(R.id.org_country_pin_code)
                 orgCountry = view.findViewById(R.id.org_country)
+                orgEmail = view.findViewById(R.id.email)
+
+                val items = resources.getStringArray(R.array.organisation_type).toList()
+                val adapter = ArrayAdapter(requireContext(), R.layout.type_org_dropdown, items)
+                (orgType as? AutoCompleteTextView)?.setAdapter(adapter)
+                (orgType as? AutoCompleteTextView)?.onItemClickListener =
+                    AdapterView.OnItemClickListener { _, _, position, _ ->
+                        orgTypeText = adapter.getItem(position).toString()
+                    }
+
+                orgEmail.setText(FirebaseAuth.getInstance().currentUser?.email)
+                //     val items = resources.getStringArray(R.array.organisation_type).toList()
+                //      val adapter = ArrayAdapter(requireContext(), R.layout.profile_drop_down, items)
+                orgType = view.findViewById<AppCompatAutoCompleteTextView>(R.id.org_type)
+                orgType.setAdapter(adapter)
                 organisationRegistration()
             }
             1 -> {
@@ -111,6 +126,7 @@ class UserDetails : Fragment() {
                 memberEmail = view.findViewById(R.id.organisation_member_email)
                 memberDesignation = view.findViewById(R.id.organisation_member_designation)
                 memberPrimaryField = view.findViewById(R.id.organisation_member_primary_subject)
+                memberEmail.setText(FirebaseUtils.firebaseUser?.email)
                 orgMemberRegistration()
 
             }
@@ -120,6 +136,7 @@ class UserDetails : Fragment() {
                 individualName = view.findViewById(R.id.individual_name)
                 individualCourse = view.findViewById(R.id.individual_courses)
                 individualStd = view.findViewById(R.id.individual_std)
+                individualEmail.setText(FirebaseUtils.firebaseUser?.email)
                 individualRegistration()
             }
         }
@@ -136,7 +153,6 @@ class UserDetails : Fragment() {
     }
 
     private fun individualRegistration() {
-        individualEmail.setText(FirebaseUtils.firebaseUser?.email)
         val individualData = IndividualData(
             mentorCode.text.toString(),
             individualCourse.text.toString(),
@@ -152,7 +168,6 @@ class UserDetails : Fragment() {
     }
 
     private fun orgMemberRegistration() {
-        memberEmail.setText(FirebaseUtils.firebaseUser?.email)
         nextButton.setOnClickListener {
             val memberData = MemberData(
                 orgCode.text.toString(),
@@ -168,8 +183,8 @@ class UserDetails : Fragment() {
     }
 
     private fun organisationRegistration() {
-        orgEmail.setText(FirebaseUtils.firebaseUser?.email)
-
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        val userId = currentUser?.uid
         nextButton.setOnClickListener {
             Toast.makeText(context, "uploaded", Toast.LENGTH_SHORT).show()
             val orgData = OrganisationData(
@@ -178,7 +193,8 @@ class UserDetails : Fragment() {
                 "hardco ded",
                 orgAddress.text.toString(),
                 orgCountryPinCode.text.toString(),
-                orgCountry.text.toString()
+                orgCountry.text.toString(),
+                userId.toString()
             )
             Timber.i("Uploaded organisation data to Firebase")
             FirebaseUtils.uploadFbData(orgData)

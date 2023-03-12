@@ -18,36 +18,37 @@ package com.uchi.sling.utils.auth
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
+import com.google.firebase.firestore.FirebaseFirestore
 import com.uchi.sling.room.IndividualData
 import com.uchi.sling.room.MemberData
 import com.uchi.sling.room.OrganisationData
 import timber.log.Timber
 
-const val FB_MENTOR_COLLECTION = "mentor"
-const val FB_INDIVIDUAL_COLLECTION = "individual"
-const val FB_ORGANISATION_COLLECTION = "organisation"
+const val FB_MENTOR = "mentor"
+const val FB_INDIVIDUAL = "individual"
+const val FB_ORGANISATION = "organisation"
+const val FB_UID = "uid"
 
 @Suppress("unused")
 object FirebaseUtils {
     val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
     val firebaseUser: FirebaseUser? = firebaseAuth.currentUser
+    // Get a reference to your Firebase Realtime Database instance
+    val database = FirebaseDatabase.getInstance()
     val firebaseDatabase = FirebaseDatabase.getInstance().reference
     val userId = firebaseUser?.uid
-    private val orgRef: DatabaseReference by lazy { firebaseDatabase.child(FB_ORGANISATION_COLLECTION) }
-    private val mentorRef = firebaseDatabase.child(FB_MENTOR_COLLECTION)
-    private val individualRef = firebaseDatabase.child(FB_INDIVIDUAL_COLLECTION)
+    private val orgRef: DatabaseReference by lazy { firebaseDatabase.child(FB_ORGANISATION) }
+    private val mentorRef = firebaseDatabase.child(FB_MENTOR)
+    private val individualRef = firebaseDatabase.child(FB_INDIVIDUAL)
 
     /** upload data as a organisation **/
     fun uploadFbData(data: OrganisationData) {
-        val orgUser = orgRef.child(userId.toString())
-        val key = orgUser.push().key
-        if (key != null) {
-            // should never be null
-            orgUser.setValue(data)
-        }
+        val db = FirebaseFirestore.getInstance()
+        val collectionRef = db.collection(FB_ORGANISATION)
+        collectionRef.add(data)
     }
+
     /** upload data as a mentor **/
     fun uploadFbData(data: MemberData) {
         val mentorUser = mentorRef.child(userId.toString())
@@ -115,13 +116,11 @@ object FirebaseUtils {
         return userSuccess
     }
 
-    /** allows new user to sign up using their email and password **/
-    fun newUserEmailSignUp(userEmail: String, userPassword: String): Boolean {
+    fun newUserEmailSignUp(userEmail: String, userPassword: String, callback: (Boolean) -> Unit) {
         // TODO add a check to see if the password matches in two password fields and is not empty
-        var userSuccess = false
         firebaseAuth.createUserWithEmailAndPassword(userEmail, userPassword)
             .addOnCompleteListener { task ->
-                userSuccess = if (task.isSuccessful) {
+                val userSuccess = if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Timber.d("createUserWithEmail:success")
                     true
@@ -130,8 +129,12 @@ object FirebaseUtils {
                     Timber.w("createUserWithEmail:failure", task.exception)
                     false
                 }
+                callback(userSuccess)
             }
-        return userSuccess
+            .addOnFailureListener { e ->
+                Timber.e(e, "createUserWithEmail:failure")
+                callback(false)
+            }
     }
 
     /** send verification email to the new user. This will only

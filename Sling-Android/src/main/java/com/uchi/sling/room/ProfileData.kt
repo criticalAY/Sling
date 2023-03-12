@@ -22,8 +22,12 @@ data class OrganisationData(
     val orgType: String,
     val orgAddress: String,
     val orgPinCode: String,
-    val orgCountry: String
-)
+    val orgCountry: String,
+    val uid: String
+) {
+    // Add a no-argument constructor
+    constructor() : this("", "", "", "", "", "", "")
+}
 
 data class IndividualData(
     // TODO: mentor code remove string and addd list
@@ -32,7 +36,10 @@ data class IndividualData(
     val indName: String,
     val indEmail: String,
     val indStandard: String,
-)
+) {
+    // Add a no-argument constructor
+    constructor() : this("", "", "", "", "")
+}
 
 data class MemberData(
     // TODO: Add multiple subjects remove string and add list
@@ -41,4 +48,7 @@ data class MemberData(
     val mentorEmail: String,
     val mentorDesignation: String,
     val mentorPrimarySubject: String,
-)
+) {
+    // Add a no-argument constructor
+    constructor() : this("", "", "", "", "")
+}
