@@ -31,9 +31,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
+import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.FirebaseApp
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.uchi.sling.R
 import com.uchi.sling.utils.Utility
@@ -53,7 +55,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var newUser: TextView
     private lateinit var resetUserPassword: TextView
     private lateinit var logonBtn: Button
-    private lateinit var googleSignIn: TextView
+    private lateinit var googleSignIn: ShapeableImageView
     lateinit var mGoogleSignInClient: GoogleSignInClient
     private lateinit var signInRequest: BeginSignInRequest
     private val requestCode: Int = 200
@@ -75,7 +77,15 @@ class LoginActivity : AppCompatActivity() {
 
         FirebaseApp.initializeApp(this)
         buttonClickHandler()
-
+        val auth = FirebaseAuth.getInstance()
+        val currentUser = auth.currentUser
+        if (currentUser != null) {
+            val intent = Intent(this, DashboardActivity::class.java)
+            startActivity(intent)
+            finish()
+        } else {
+            //  We continue on this activity is the user is not logged in
+        }
     }
 
     private fun checkFieldsForEmptyValues() {

@@ -22,8 +22,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.EmailRegistration"
     android:orientation="vertical"
-    android:layout_marginHorizontal="12dp"
-    android:layout_marginTop="100dp">
+    android:layout_marginHorizontal="12dp">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/quote_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Registration"
+        android:textSize="38sp"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/email_layout"
@@ -93,6 +102,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </com.google.android.material.textfield.TextInputLayout>
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/user_input_next_button"
         android:layout_width="match_parent"
@@ -102,5 +112,11 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="8dp"
         android:text="@string/next" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:minHeight="300dp"
+        android:src="@drawable/sign_up_form"/>
 
 </LinearLayout>

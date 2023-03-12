@@ -19,8 +19,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:gravity="center"
     tools:context=".ui.SignUpActivity">
+    <com.google.android.material.textview.MaterialTextView
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/quote_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="How do you refer yourself?"
+        android:textSize="38sp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -62,6 +75,13 @@
             app:fabCustomSize="60dp"
             android:src="@drawable/ic_arrow_forward_24"
             android:layout_gravity="end"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:minHeight="400dp"
+            android:layout_height="400dp"
+            android:src="@drawable/profile_selection"/>
+
 
     </LinearLayout>
 

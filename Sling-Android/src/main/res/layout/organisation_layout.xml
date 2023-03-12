@@ -14,7 +14,7 @@
   ~ this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -22,13 +22,31 @@
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <ImageView
+        app:layout_constraintTop_toBottomOf="@id/registration_scroll_view"
+        app:layout_constraintBottom_toBottomOf="@id/user_input_next_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="match_parent"
+        android:minHeight="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/registration_details"/>
     <com.google.android.material.textview.MaterialTextView
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:id="@+id/quote_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="12dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Account Details"
         android:textSize="38sp"/>
+
     <ScrollView
+        android:id="@+id/registration_scroll_view"
+        app:layout_constraintTop_toBottomOf="@id/quote_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="12dp">
@@ -54,7 +72,7 @@
                 android:layout_margin="4dp"
                 style="@style/ThemeOverlay.Material3.TextInputEditText.FilledBox">
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/org_email"
+                    android:id="@+id/email"
                     android:clickable="false"
                     android:focusable="false"
                     android:layout_width="match_parent"
@@ -78,7 +96,9 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/org_name"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:maxLength="30"
+                    android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -120,7 +140,10 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/org_address"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:maxLength="50"
+                    android:maxEms="28"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -138,6 +161,8 @@
                 style="@style/ThemeOverlay.Material3.TextInputEditText.FilledBox">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/org_country_pin_code"
+                    android:inputType="number"
+                    android:maxLength="10"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -165,12 +190,11 @@
 
     </ScrollView>
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
 
     <com.google.android.material.button.MaterialButton
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:id="@+id/user_input_next_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -180,4 +204,4 @@
         android:layout_marginBottom="8dp"
         android:text="@string/next"
         android:layout_gravity="bottom"/>
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -68,8 +68,14 @@ class EmailRegistration : Fragment() {
 
         nextButton.setOnClickListener {
             if (registrationEmailCheck()) {
-                FirebaseUtils.newUserEmailSignUp(registrationEmail.text.toString(), rePasswordText.text.toString())
-                findNavController().navigate(EmailRegistrationDirections.actionEmailRegistrationToUserDetails(userProfile))
+                FirebaseUtils.newUserEmailSignUp(registrationEmail.text.toString(), rePasswordText.text.toString()) { success ->
+                    if (success) {
+                        findNavController().navigate(EmailRegistrationDirections.actionEmailRegistrationToUserDetails(userProfile))
+                    } else {
+                        Toast.makeText(context, "fdfd", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
             } else Toast.makeText(context, "fdfd", Toast.LENGTH_SHORT).show()
 
         }

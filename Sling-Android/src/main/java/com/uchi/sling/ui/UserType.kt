@@ -16,6 +16,7 @@
 
 package com.uchi.sling.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -31,18 +32,10 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.uchi.sling.R
 
-/**
- * A simple [Fragment] subclass.
- * Use the [UserType.newInstance] factory method to
- * create an instance of this fragment.
- */
 class UserType : Fragment() {
     lateinit var userType: AutoCompleteTextView
     lateinit var proceedToUserDetails: FloatingActionButton
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
-    }
 // TODO: dont enable the button until user select some value
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -53,12 +46,14 @@ class UserType : Fragment() {
         (userType as? AutoCompleteTextView)?.onItemClickListener =
             AdapterView.OnItemClickListener { _, _, position, _ ->
                 userVarArg = position
+                // Get the SharedPreferences object
+                val sharedPreferences = context?.getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+                val editor = sharedPreferences?.edit()
+                editor?.putString("userType", adapter.getItem(position))
+                editor?.apply()
             }
         proceedToUserDetails.setOnClickListener {
-//            findNavController().navigate(UserTypeDirections.actionUserTypeToUserDetails(userVarArg!!.toInt()))
             findNavController().navigate(UserTypeDirections.actionUserTypeToEmailRegistration())
-            //  findNavController().navigate(UserTypeDirections).actio
-            // findNavController().navigate(UserTypeDirections).actionUserTypeToEmailRegistration(userVarArg!!.toInt())
             val userTypeViewModel = ViewModelProvider(requireActivity())[UserTypeViewModel::class.java]
             userTypeViewModel.sharedData.value = userVarArg!!.toInt()
 

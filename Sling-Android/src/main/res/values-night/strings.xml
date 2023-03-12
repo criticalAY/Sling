@@ -50,6 +50,14 @@
     <string name="invalid_email">Enter a valid Email</string>
     <string name="re_enter_password">Re enter password</string>
     <string name="incorrect_password">Passwords don\'t match</string>
+    <string name="check">Check</string>
+    <string name="rooms">Rooms</string>
+    <string name="mentor">Mentors</string>
+    <string name="mentee">Mentees</string>
+    <string name="your_assignments">Your assignments</string>
+    <string name="title_classes">Classes</string>
+    <string name="title_rooms">Rooms</string>
+    <string name="empty_organisation">Oops! No one has joined using your\n organisation code</string>
     <string-array name="user_type">
         <item>Organisation</item>
         <item>Mentor</item>

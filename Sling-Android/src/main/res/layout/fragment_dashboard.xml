@@ -21,6 +21,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:theme="@style/Theme.Sling.NoActionbar"
     tools:context=".ui.DashboardFragment">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -45,21 +46,23 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:layout_marginHorizontal="6dp"
+                    android:layout_marginBottom="12dp"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/welcome_back"
-                        android:textColor="@color/md_theme_light_outline" />
+                        android:textSize="16dp"
+                        android:fontFamily="@font/poppins_light"
+                        android:text="@string/welcome_back" />
 
                     <TextView
                         android:id="@+id/profile_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/alata"
-                        android:text="Ashish Yadav"
-                        android:textSize="18sp" />
+                        android:textSize="20sp" />
                 </LinearLayout>
 
                 <ImageView
@@ -86,13 +89,97 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:text="dfdfjfskfshfkfhsdkjfhfkjdsfhdsfjkdsfhdsfkjfhkjsdhfkdjsfhdskjdshfkjds"
-            android:textSize="100sp" />
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="6dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:orientation="vertical"
+                android:background="@drawable/rounded_outline_shape">
 
+                <TextView
+                    android:id="@+id/user_registered_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_light"
+                    android:text="Current Sem"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/user_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_light"
+                    android:text="Current Sem"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/assignment_check_layout"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/rounded_outline_shape_gray"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="4dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/poppins_light"
+                    android:text="@string/your_assignments"
+                    android:textSize="18sp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:fontFamily="@font/poppins"
+                    android:gravity="center"
+                    android:text="@string/check"
+                    android:textAllCaps="false"
+                    app:cornerRadius="20dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/empty_org"
+                android:layout_gravity="center"
+                android:layout_marginTop="40dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:minWidth="300dp"
+                    android:minHeight="300dp"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
+                    android:src="@drawable/no_mentor"/>
+
+                <TextView
+                    android:fontFamily="@font/poppins"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/empty_organisation"/>
+
+            </LinearLayout>
+
+            <include layout="@layout/work_progress"/>
+
+        </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
 
