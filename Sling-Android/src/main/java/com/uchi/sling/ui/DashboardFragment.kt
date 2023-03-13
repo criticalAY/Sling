@@ -28,10 +28,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.uchi.sling.R
 import com.uchi.sling.room.OrganisationData
-import com.uchi.sling.utils.auth.FB_INDIVIDUAL
-import com.uchi.sling.utils.auth.FB_MENTOR
-import com.uchi.sling.utils.auth.FB_ORGANISATION
-import com.uchi.sling.utils.auth.FB_UID
+import com.uchi.sling.utils.auth.*
 import com.uchi.sling.viewmodels.OrganisationViewModel
 import timber.log.Timber
 
@@ -70,13 +67,13 @@ class DashboardFragment : Fragment() {
 
     private fun setSubDashboardTitle(user: String?) {
         when (user) {
-            "Organisation" -> {
+            ORGANISATION -> {
                 this.userSubTitle.text = getString(R.string.title_mentors)
             }
-            FB_MENTOR -> {
+            MENTOR -> {
                 this.userSubTitle.text = getString(R.string.title_classes)
             }
-            FB_INDIVIDUAL -> {
+            INDIVIDUAL -> {
                 this.userSubTitle.text = getString(R.string.title_rooms)
             }
         }

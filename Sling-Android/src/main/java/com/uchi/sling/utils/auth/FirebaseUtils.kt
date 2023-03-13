@@ -29,6 +29,9 @@ const val FB_MENTOR = "mentor"
 const val FB_INDIVIDUAL = "individual"
 const val FB_ORGANISATION = "organisation"
 const val FB_UID = "uid"
+const val ORGANISATION = "Organisation"
+const val MENTOR = "Mentor"
+const val INDIVIDUAL = "Individual"
 
 @Suppress("unused")
 object FirebaseUtils {
