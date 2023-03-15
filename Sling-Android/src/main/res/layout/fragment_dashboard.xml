@@ -178,7 +178,11 @@
             </LinearLayout>
 
             <include layout="@layout/work_progress"/>
-
+            <Button
+                android:id="@+id/code_generate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="code"/>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
