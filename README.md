@@ -1,3 +1,3 @@
 # Sling
 A stat app for community
-Will be updated later
+Made for Schools and student organisations
