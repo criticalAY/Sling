@@ -21,22 +21,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.uchi.sling.R
 import com.uchi.sling.room.OrganisationData
-import com.uchi.sling.utils.JoiningCodeGenerator
-import com.uchi.sling.utils.auth.*
+import com.uchi.sling.utils.auth.FB_ORGANISATION
+import com.uchi.sling.utils.auth.FB_UID
+import com.uchi.sling.utils.auth.ORGANISATION
 import com.uchi.sling.viewmodels.OrganisationViewModel
-import kotlinx.coroutines.runBlocking
 import timber.log.Timber
 
-class DashboardFragment : Fragment() {
+class OrganisationDashboard : Fragment() {
 
     lateinit var profileName: TextView
     lateinit var profileEmail: TextView
@@ -59,13 +57,6 @@ class DashboardFragment : Fragment() {
         profileName = view.findViewById(R.id.profile_name)
         profileEmail = view.findViewById(R.id.user_registered_email)
         profileType = view.findViewById(R.id.user_details)
-        val codegen = view.findViewById<Button>(R.id.code_generate)
-        codegen.setOnClickListener {
-            runBlocking {
-                val c = JoiningCodeGenerator().generateCode()
-                Toast.makeText(context, c.toString(), Toast.LENGTH_SHORT).show()
-            }
-        }
 
         val sharedPreferences = context?.getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
         val user = sharedPreferences?.getString("userType", "")
@@ -81,16 +72,10 @@ class DashboardFragment : Fragment() {
             ORGANISATION -> {
                 this.userSubTitle.text = getString(R.string.title_mentors)
             }
-            MENTOR -> {
-                this.userSubTitle.text = getString(R.string.title_classes)
-            }
-            INDIVIDUAL -> {
-                this.userSubTitle.text = getString(R.string.title_rooms)
-            }
         }
     }
 
-    fun firebaseData() {
+    private fun firebaseData() {
         val user = FirebaseAuth.getInstance().currentUser
         val uid = user?.uid.toString() // uid is a String that contains the UID of the current user
         val db = FirebaseFirestore.getInstance()

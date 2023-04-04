@@ -58,6 +58,8 @@
     <string name="title_classes">Classes</string>
     <string name="title_rooms">Rooms</string>
     <string name="empty_organisation">Oops! No one has joined using your\n organisation code</string>
+    <string name="no_classroom_created">You haven\'t created any classroom yet.</string>
+    <string name="invalid_joining_code">Invalid joining code</string>
     <string-array name="user_type">
         <item>Organisation</item>
         <item>Mentor</item>

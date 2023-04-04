@@ -16,13 +16,12 @@
   -->
 
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
-    android:theme="@style/Theme.Sling.NoActionbar"
-    tools:context=".ui.OrganisationDashboard">
+    tools:context=".ui.MentorDashboard">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -117,40 +116,8 @@
 
             </LinearLayout>
 
-<!--            <LinearLayout-->
-<!--                android:id="@+id/assignment_check_layout"-->
-<!--                android:visibility="gone"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="6dp"-->
-<!--                android:background="@drawable/rounded_outline_shape_gray"-->
-<!--                android:gravity="center"-->
-<!--                android:orientation="horizontal"-->
-<!--                android:padding="4dp">-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginStart="8dp"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:fontFamily="@font/poppins_light"-->
-<!--                    android:text="@string/your_assignments"-->
-<!--                    android:textSize="18sp" />-->
-
-<!--                <com.google.android.material.button.MaterialButton-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginEnd="10dp"-->
-<!--                    android:fontFamily="@font/poppins"-->
-<!--                    android:gravity="center"-->
-<!--                    android:text="@string/check"-->
-<!--                    android:textAllCaps="false"-->
-<!--                    app:cornerRadius="20dp" />-->
-
-<!--            </LinearLayout>-->
-
             <LinearLayout
-                android:id="@+id/empty_org"
+                android:id="@+id/empty_class"
                 android:layout_gravity="center"
                 android:layout_marginTop="40dp"
                 android:layout_width="match_parent"
@@ -170,7 +137,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@string/empty_organisation"/>
+                    android:text="@string/no_classroom_created"/>
 
             </LinearLayout>
 

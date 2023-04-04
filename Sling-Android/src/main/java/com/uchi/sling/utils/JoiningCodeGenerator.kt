@@ -43,9 +43,42 @@ class JoiningCodeGenerator {
         } else {
             // Document does not exist, generate a new code and create a new document
             val characters = arrayOf(
-                "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
-                "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
-                "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"
+                "A",
+                "B",
+                "C",
+                "D",
+                "E",
+                "F",
+                "G",
+                "H",
+                "I",
+                "J",
+                "K",
+                "L",
+                "M",
+                "N",
+                "O",
+                "P",
+                "Q",
+                "R",
+                "S",
+                "T",
+                "U",
+                "V",
+                "W",
+                "X",
+                "Y",
+                "Z",
+                "0",
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6",
+                "7",
+                "8",
+                "9"
             )
             val codeLength = 8
             var code = ""
@@ -68,8 +101,7 @@ class JoiningCodeGenerator {
 
             // Create a new document with the user ID and the generated code
             val newDocument = hashMapOf(
-                FB_UID to uid,
-                CODE to code
+                FB_UID to uid, CODE to code
             )
             codesRef.add(newDocument).await()
             return code

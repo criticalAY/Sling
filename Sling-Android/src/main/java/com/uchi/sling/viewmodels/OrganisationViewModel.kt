@@ -43,3 +43,29 @@ class OrganisationViewModel : ViewModel() {
         organisationType.value = type
     }
 }
+
+// Mentors View Model
+
+class MentorViewModel : ViewModel() {
+
+    private val mentorName = MutableLiveData<String>()
+    val mName: LiveData<String> = mentorName
+
+    private val mentorEmail = MutableLiveData<String>()
+    val mEmail: LiveData<String> = mentorEmail
+
+    private val mentorType = MutableLiveData<String>()
+    val mType: LiveData<String> = mentorType
+
+    fun updateOrgName(name: String) {
+        mentorName.value = name
+    }
+
+    fun updateOrgEmail(email: String) {
+        mentorEmail.value = email
+    }
+
+    fun updateOrgType(type: String) {
+        mentorType.value = type
+    }
+}

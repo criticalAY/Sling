@@ -21,7 +21,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import com.google.firebase.firestore.FirebaseFirestore
 import com.uchi.sling.room.IndividualData
-import com.uchi.sling.room.MemberData
+import com.uchi.sling.room.MentorData
 import com.uchi.sling.room.OrganisationData
 import timber.log.Timber
 
@@ -29,6 +29,7 @@ const val FB_MENTOR = "mentor"
 const val FB_INDIVIDUAL = "individual"
 const val FB_ORGANISATION = "organisation"
 const val FB_UID = "uid"
+const val FB_MUID = "mentorUID"
 const val ORGANISATION = "Organisation"
 const val MENTOR = "Mentor"
 const val INDIVIDUAL = "Individual"
@@ -55,13 +56,10 @@ object FirebaseUtils {
     }
 
     /** upload data as a mentor **/
-    fun uploadFbData(data: MemberData) {
-        val mentorUser = mentorRef.child(userId.toString())
-        val key = mentorUser.push().key
-        if (key != null) {
-            // should never be null
-            mentorUser.setValue(data)
-        }
+    fun uploadFbData(data: MentorData) {
+        val db = FirebaseFirestore.getInstance()
+        val collectionRef = db.collection(FB_MENTOR)
+        collectionRef.add(data)
     }
 
     /** upload data as a individual **/
