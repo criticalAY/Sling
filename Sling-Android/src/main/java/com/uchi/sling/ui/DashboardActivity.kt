@@ -16,14 +16,19 @@
 
 package com.uchi.sling.ui
 
+import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.uchi.sling.R
+import com.uchi.sling.utils.auth.INDIVIDUAL
+import com.uchi.sling.utils.auth.MENTOR
+import com.uchi.sling.utils.auth.ORGANISATION
 
 class DashboardActivity : AppCompatActivity() {
-    private val dashboardFragment = DashboardFragment()
+    private val organisationDashboard = OrganisationDashboard()
+    private val mentorDashboard = MentorDashboard()
     private val accountFragment = AccountFragment()
     private val statsFragment = StatsFragment()
     lateinit var bottomNavigation: BottomNavigationView
@@ -32,12 +37,25 @@ class DashboardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
         bottomNavigation = findViewById(R.id.dashboard_navigation)
-        navigateFragments(dashboardFragment)
+        navigateFragments(organisationDashboard)
+        val sharedPreferences = this.getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+        val user = sharedPreferences?.getString("userType", "")
 
         bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.item_home -> {
-                    navigateFragments(dashboardFragment)
+                    when (user.toString()) {
+                        ORGANISATION -> {
+                            navigateFragments(organisationDashboard)
+                        }
+                        MENTOR -> {
+                            navigateFragments(mentorDashboard)
+                        }
+
+                        INDIVIDUAL -> {
+
+                        }
+                    }
                     true
                 }
                 R.id.item_account_settings -> {

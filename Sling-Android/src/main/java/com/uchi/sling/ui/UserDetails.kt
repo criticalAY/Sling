@@ -26,13 +26,18 @@ import android.widget.*
 import androidx.appcompat.widget.AppCompatAutoCompleteTextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
+import com.google.android.gms.tasks.Task
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.uchi.sling.R
 import com.uchi.sling.room.IndividualData
-import com.uchi.sling.room.MemberData
+import com.uchi.sling.room.MentorData
 import com.uchi.sling.room.OrganisationData
+import com.uchi.sling.room.ParentData
+import com.uchi.sling.utils.auth.CODE
+import com.uchi.sling.utils.auth.FB_CODES
 import com.uchi.sling.utils.auth.FirebaseUtils
 import timber.log.Timber
 
@@ -53,6 +58,8 @@ class UserDetails : Fragment() {
     lateinit var memberEmail: TextInputEditText
     lateinit var memberDesignation: TextInputEditText
     lateinit var memberPrimaryField: TextInputEditText
+
+    lateinit var organisationJoiningCode: String
 
     // individual
     lateinit var mentorCode: TextInputEditText
@@ -126,7 +133,8 @@ class UserDetails : Fragment() {
                 memberEmail = view.findViewById(R.id.organisation_member_email)
                 memberDesignation = view.findViewById(R.id.organisation_member_designation)
                 memberPrimaryField = view.findViewById(R.id.organisation_member_primary_subject)
-                memberEmail.setText(FirebaseUtils.firebaseUser?.email)
+
+                memberEmail.setText(FirebaseAuth.getInstance().currentUser?.email)
                 orgMemberRegistration()
 
             }
@@ -166,20 +174,41 @@ class UserDetails : Fragment() {
             goToDashboard()
         }
     }
-
     private fun orgMemberRegistration() {
-        nextButton.setOnClickListener {
-            val memberData = MemberData(
-                orgCode.text.toString(),
-                memberName.text.toString(),
-                memberEmail.text.toString(),
-                memberDesignation.text.toString(),
-                memberPrimaryField.text.toString()
-            )
-            FirebaseUtils.uploadFbData(memberData)
-            Timber.i("Uploaded organisation member data to Firebase")
-            goToDashboard()
+        organisationJoiningCode = "null"
+        val currentUser = FirebaseAuth.getInstance().currentUser
+
+        orgCode.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus) {
+                organisationJoiningCode = fetchParent(orgCode.text.toString()).toString()
+
+            }
         }
+
+        val userId = currentUser?.uid
+        nextButton.setOnClickListener {
+            if (organisationJoiningCode.isEmpty() || organisationJoiningCode == "null") {
+                val codeError = view?.findViewById<TextInputLayout>(R.id.joining_code_layout)
+                codeError?.isErrorEnabled = true
+                codeError?.error = getString(R.string.invalid_joining_code)
+            } else {
+                val codeError = view?.findViewById<TextInputLayout>(R.id.joining_code_layout)
+                codeError?.isErrorEnabled = false
+                val memberData = MentorData(
+                    orgCode.text.toString(),
+                    memberName.text.toString(),
+                    memberEmail.text.toString(),
+                    memberDesignation.text.toString(),
+                    memberPrimaryField.text.toString(),
+                    organisationJoiningCode,
+                    userId.toString()
+                )
+                FirebaseUtils.uploadFbData(memberData)
+                Timber.i("Uploaded organisation member data to Firebase")
+                goToDashboard()
+            }
+        }
+
     }
 
     private fun organisationRegistration() {
@@ -199,6 +228,22 @@ class UserDetails : Fragment() {
             Timber.i("Uploaded organisation data to Firebase")
             FirebaseUtils.uploadFbData(orgData)
             goToDashboard()
+        }
+    }
+
+    fun fetchParent(joiningCode: String): Task<String> {
+        val db = FirebaseFirestore.getInstance()
+        val collectionRef = db.collection(FB_CODES)
+        val query = collectionRef.whereEqualTo(CODE, joiningCode)
+
+        return query.get().continueWith { task ->
+            if (task.isSuccessful) {
+                val document = task.result.documents.firstOrNull()
+                val parentData = document?.toObject(ParentData::class.java)
+                parentData?.uid ?: throw RuntimeException("Parent document not found")
+            } else {
+                throw task.exception ?: RuntimeException("Unknown error")
+            }
         }
     }
 

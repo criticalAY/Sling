@@ -41,14 +41,23 @@ data class IndividualData(
     constructor() : this("", "", "", "", "")
 }
 
-data class MemberData(
+data class MentorData(
     // TODO: Add multiple subjects remove string and add list
     val orgCode: String,
     val mentorName: String,
     val mentorEmail: String,
     val mentorDesignation: String,
     val mentorPrimarySubject: String,
+    val orgId: String,
+    val mentorUID: String
 ) {
     // Add a no-argument constructor
-    constructor() : this("", "", "", "", "")
+    constructor() : this("", "", "", "", "", "", "")
+}
+
+data class ParentData(
+    val uid: String,
+    val Code: String
+) {
+    constructor() : this("", "")
 }
